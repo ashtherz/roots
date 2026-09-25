@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c3wauulm1dttu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5m132"]
+size = Vector2(50, 50)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5m132"]
+size = Vector2(50, 50)
+
+[node name="Platformer" type="Node2D" unique_id=1619893616]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=497484441]
+position = Vector2(152, 87)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=720186370]
+shape = SubResource("RectangleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=6445630]
+texture = SubResource("PlaceholderTexture2D_5m132")
