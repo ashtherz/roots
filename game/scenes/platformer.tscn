@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://3yfmk30b3e7c" path="res://scripts/platformer/player.gd" id="1_xxtnn"]
 [ext_resource type="Texture2D" uid="uid://dv7e5eiqndy8s" path="res://assets/sprites/tilesets/platformer_tileset.png" id="2_j2uy2"]
+[ext_resource type="Shader" uid="uid://bw7rs7q2i56si" path="res://assets/item_outline.gdshader" id="3_85uu4"]
+[ext_resource type="Texture2D" uid="uid://3rl2tdyieagd" path="res://assets/sprites/battery.png" id="4_xlal6"]
+[ext_resource type="Script" uid="uid://dk7xma07k385n" path="res://scripts/platformer/interactable_sprite.gd" id="5_qcnyv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5m132"]
 size = Vector2(50, 50)
@@ -45,10 +48,17 @@ sources/0 = SubResource("TileSetAtlasSource_85uu4")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gu6s7"]
 size = Vector2(100, 25)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5m132"]
+radius = 50.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2sk2l"]
+shader = ExtResource("3_85uu4")
+
 [node name="Platformer" type="Node2D" unique_id=1619893616]
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=497484441]
-position = Vector2(152, 87)
+unique_name_in_owner = true
+position = Vector2(131, 557)
 script = ExtResource("1_xxtnn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=720186370]
@@ -98,3 +108,20 @@ position = Vector2(278, 251)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D5" unique_id=961605109]
 shape = SubResource("RectangleShape2D_gu6s7")
 one_way_collision = true
+
+[node name="Interactable" type="Node2D" parent="." unique_id=222723877]
+position = Vector2(247, 545)
+
+[node name="Area2D" type="Area2D" parent="Interactable" unique_id=1689563660]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable/Area2D" unique_id=1147629661]
+shape = SubResource("CircleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="Interactable" unique_id=786379208]
+material = SubResource("ShaderMaterial_2sk2l")
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("4_xlal6")
+script = ExtResource("5_qcnyv")
+
+[connection signal="body_entered" from="Interactable/Area2D" to="Interactable/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Interactable/Area2D" to="Interactable/Sprite2D" method="_on_area_2d_body_exited"]
