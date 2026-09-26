@@ -1,19 +1,24 @@
 extends CharacterBody2D
 
 
-const MAX_SPEED = 600.0
-const JUMP_SPEED = -450.0
+const MAX_SPEED = 700.0
+const JUMP_SPEED = -600.0
 
 const GRAVITY : float = 2
-const FLOATINESS : float = 0.4
-const NOT_ON_FLOOR_PENALTY : float = 0.25
+const FLOATINESS : float = 0.8
+
 const BASE_ACCEL : float = 400
+const NOT_ON_FLOOR_PENALTY : float = 0.25
 const START_ACCEL_FACTOR : float = 4
+
 const DECEL : float = BASE_ACCEL * START_ACCEL_FACTOR
 const AIR_RESISTANCE : float = 0.2
 const MAX_AIR_DECEL : float = MAX_SPEED * 0.15
-const JUMP_PERIOD : float = 0.08
-const COYOTE_TIME : float = 0.7  # approx 2 physics frames
+
+const JUMP_PERIOD : float = 0.1
+const COYOTE_TIME : float = 0.07  # approx 2 physics frames
+const JUMP_HEIGHT_PENALTY_THRESHOLD : float = MAX_SPEED * 0.5
+const SPEED_JUMP_HEIGHT_PENALTY : float = 0.4 # Fast -> jump less high
 
 # Speed management
 var speed_x : float = 0.0
@@ -47,7 +52,9 @@ func _physics_process(delta: float) -> void:
 	
 	if jumping:
 		var jump_delta = min(delta, JUMP_PERIOD - jump_time)
-		velocity.y += JUMP_SPEED * jump_delta / JUMP_PERIOD
+		# Penalty: If you are moving fast, you can't jump as high
+		var jump_penalty = 1 - pow(clamp((abs(velocity.x) - JUMP_HEIGHT_PENALTY_THRESHOLD) / MAX_SPEED, 0, 1), 0.3) * SPEED_JUMP_HEIGHT_PENALTY
+		velocity.y += JUMP_SPEED * jump_penalty * jump_delta / JUMP_PERIOD
 	else:
 		# Fall due to gravity
 		var grav_factor : float = FLOATINESS if Input.is_action_pressed("PlatformerJump") else 1.0
