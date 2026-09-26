@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://bw7rs7q2i56si" path="res://assets/item_outline.gdshader" id="3_85uu4"]
 [ext_resource type="Texture2D" uid="uid://3rl2tdyieagd" path="res://assets/sprites/battery.png" id="4_xlal6"]
 [ext_resource type="Script" uid="uid://dk7xma07k385n" path="res://scripts/platformer/interactable_sprite.gd" id="5_qcnyv"]
+[ext_resource type="Texture2D" uid="uid://c1glllwd560s6" path="res://assets/sprites/teacup.png" id="6_qcnyv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5m132"]
 size = Vector2(50, 50)
@@ -136,6 +137,7 @@ material = SubResource("ShaderMaterial_2sk2l")
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_xlal6")
 script = ExtResource("5_qcnyv")
+interactedSprite = ExtResource("6_qcnyv")
 
 [connection signal="body_entered" from="Interactable/Area2D" to="Interactable/Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Interactable/Area2D" to="Interactable/Sprite2D" method="_on_area_2d_body_exited"]
