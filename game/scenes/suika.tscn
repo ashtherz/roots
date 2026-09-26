@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://8xn22ho5n0un"]
+
+[ext_resource type="Texture2D" uid="uid://5x31egvcvfi8" path="res://icon.svg" id="1_5hanc"]
+[ext_resource type="Script" uid="uid://clbs7mrnk45wt" path="res://scripts/suika/suika.gd" id="2_5hanc"]
+
+[node name="Suika" type="Node2D" unique_id=1845090816]
+
+[node name="Suikabowl" type="Node2D" parent="." unique_id=1256978956]
+
+[node name="Area2D" type="StaticBody2D" parent="Suikabowl" unique_id=511649070]
+position = Vector2(539, 319)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Suikabowl/Area2D" unique_id=1393097940]
+polygon = PackedVector2Array(-89, -56, -89, 124, 140, 125, 138, -59, 170, -58, 173, 141, -109, 147, -115, -53)
+
+[node name="Sprite2D" type="Sprite2D" parent="Suikabowl" unique_id=538327917]
+position = Vector2(566, 454)
+scale = Vector2(3.1171875, 0.14453146)
+texture = ExtResource("1_5hanc")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Suikabowl" unique_id=1426727461]
+position = Vector2(436, 373)
+rotation = -1.5707964
+scale = Vector2(3.1171875, 0.14453146)
+texture = ExtResource("1_5hanc")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Suikabowl" unique_id=833314996]
+position = Vector2(692, 373)
+rotation = -1.5707964
+scale = Vector2(3.1171875, 0.14453146)
+texture = ExtResource("1_5hanc")
+
+[node name="GameController" type="Node2D" parent="." unique_id=211265387]
+position = Vector2(559, 129)
+script = ExtResource("2_5hanc")
