@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dk7xma07k385n" path="res://scripts/platformer/interactable_sprite.gd" id="5_qcnyv"]
 [ext_resource type="Texture2D" uid="uid://cmouwejqawh1r" path="res://assets/sprites/tilesets/platform.png" id="5_v5gpo"]
 [ext_resource type="Texture2D" uid="uid://drgns7we00gje" path="res://assets/sprites/platformer/torch.png" id="6_txcic"]
+[ext_resource type="Script" uid="uid://bnbrmtee24k52" path="res://scripts/platformer/interactable_manager.gd" id="7_crvc6"]
 [ext_resource type="Texture2D" uid="uid://euukf8dnbr4h" path="res://assets/sprites/platformer/bed.png" id="8_bareo"]
 [ext_resource type="Texture2D" uid="uid://dgiuyamky2vmb" path="res://assets/sprites/platformer/torch_alt.png" id="9_v4035"]
 [ext_resource type="Texture2D" uid="uid://bl4snfra5t1l" path="res://assets/sprites/platformer/pot_before.png" id="11_qoqfw"]
@@ -155,17 +156,17 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_85uu4")
 sources/1 = SubResource("TileSetAtlasSource_v4035")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5m132"]
-radius = 50.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2sk2l"]
-shader = ExtResource("3_85uu4")
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2sk2l"]
 size = Vector2(1152, 640)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wfjm3"]
 size = Vector2(96, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5m132"]
+radius = 50.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2sk2l"]
+shader = ExtResource("3_85uu4")
 
 [node name="Platformer" type="Node2D" unique_id=1619893616]
 
@@ -204,140 +205,6 @@ z_index = 1
 scale = Vector2(2, 2)
 tile_map_data = PackedByteArray("AAACABMAAAABAAAAAAADABMAAAABAAAAAAD//xMAAAABAAAAAAAAABMAAAABAAAAAAABABMAAAABAAAAAAAEABMAAAABAAAAAAAFABMAAAABAAAAAAAGABMAAAABAAAAAAAHABMAAAABAAAAAAAIABMAAAABAAAAAAAJABMAAAABAAAAAAAKABMAAAABAAAAAAALABMAAAABAAAAAAAMABMAAAABAAAAAAANABMAAAABAAAAAAAOABMAAAABAAAAAAAPABMAAAABAAAAAAAQABMAAAABAAAAAAARABMAAAABAAAAAAASABMAAAABAAAAAAATABMAAAABAAAAAAAUABMAAAABAAAAAAAVABMAAAABAAAAAAAWABMAAAABAAAAAAAXABMAAAABAAAAAAAYABMAAAABAAAAAAAZABMAAAABAAAAAAAZAAAAAAABAAIAAAAYAAAAAAABAAIAAAAXAAAAAAABAAIAAAAWAAAAAAABAAIAAAAVAAAAAAABAAIAAAAUAAAAAAABAAIAAAATAAAAAAABAAIAAAASAAAAAAABAAIAAAARAAAAAAABAAIAAAAQAAAAAAABAAIAAAAPAAAAAAABAAIAAAAOAAAAAAABAAIAAAANAAAAAAABAAIAAAAMAAAAAAADAAEAAAALAAAAAAABAAEAAAAKAAAAAAABAAEAAAAJAAAAAAABAAEAAAAIAAAAAAABAAEAAAAHAAAAAAABAAEAAAAGAAAAAAABAAEAAAAFAAAAAAABAAEAAAAEAAAAAAABAAEAAAADAAAAAAABAAEAAAACAAAAAAABAAEAAAABAAAAAAABAAEAAAAAAAEAAAABAAEAAAAAAAIAAAABAAEAAAAAAAMAAAABAAEAAAAAAAQAAAABAAEAAAAAAAUAAAABAAEAAAAAAAYAAAABAAEAAAAAAAcAAAADAAEAAAAAAAgAAAACAAEAAAAAAAkAAAACAAEAAAAAAAoAAAACAAEAAAAAAAsAAAACAAEAAAAAAAwAAAACAAEAAAAAAA0AAAACAAEAAAAAAA4AAAACAAEAAAAAAAAAAAABAAEAAAAAAA8AAAACAAIAAAD//w8AAAABAAIAAAD+/xIAAAACAAEAAAD+/xEAAAACAAEAAAD+/xAAAAACAAEAAAABAAUAAAABAAEAAAACAAUAAAADAAEAAAADAAUAAAABAAIAAAAEAAUAAAABAAIAAAAFAAUAAAABAAIAAAAGAAUAAAABAAIAAAAHAAUAAAABAAIAAAAKAAMAAAACAAIAAAAKAAIAAAACAAEAAAAKAAEAAAADAAEAAAAJAAEAAAABAAEAAAAJAAIAAAABAAEAAAAJAAMAAAADAAEAAAAJAAQAAAACAAEAAAAIAAQAAAABAAEAAAAIAAMAAAABAAEAAAAIAAIAAAABAAEAAAAIAAEAAAABAAEAAAAHAAEAAAABAAEAAAAHAAIAAAABAAEAAAAHAAMAAAABAAEAAAAHAAQAAAABAAEAAAAGAAQAAAABAAEAAAAGAAMAAAABAAEAAAAGAAIAAAABAAEAAAAGAAEAAAABAAEAAAAFAAEAAAABAAEAAAAFAAIAAAABAAEAAAAFAAMAAAABAAEAAAAFAAQAAAABAAEAAAAEAAMAAAABAAEAAAAEAAIAAAABAAEAAAAEAAEAAAABAAEAAAAEAAQAAAABAAEAAAADAAQAAAABAAEAAAADAAMAAAABAAEAAAADAAIAAAABAAEAAAADAAEAAAABAAEAAAACAAEAAAABAAEAAAACAAIAAAABAAEAAAACAAMAAAABAAEAAAACAAQAAAABAAEAAAABAAQAAAABAAEAAAABAAMAAAABAAEAAAABAAIAAAABAAEAAAABAAEAAAABAAEAAAABAAcAAAACAAIAAAACAAYAAAACAAIAAAABAAYAAAADAAEAAAAIAAUAAAABAAIAAAALAAEAAAABAAIAAAAMAAEAAAACAAIAAAAfAAAAAAABAAIAAAAfABMAAAABAAAAAAAgAAAAAAABAAIAAAAgABMAAAABAAAAAAAhAAAAAAABAAIAAAAhABMAAAABAAAAAAAiAAAAAAABAAIAAAAiABMAAAABAAAAAAAjAAAAAAAEAAEAAAAjAAEAAAAAAAIAAAAjABMAAAABAAAAAAAkAAAAAAABAAEAAAAkAAEAAAABAAIAAAAkABMAAAABAAAAAAAlAAAAAAABAAEAAAAlAAEAAAABAAIAAAAlABMAAAABAAAAAAAmAAAAAAABAAEAAAAmAAEAAAAEAAEAAAAmAAIAAAAAAAEAAAAmAAMAAAAAAAEAAAAmAAQAAAAAAAIAAAAmABMAAAABAAAAAAAnAAAAAAABAAEAAAAnAAEAAAABAAEAAAAnAAIAAAABAAEAAAAnAAMAAAABAAEAAAAnAAQAAAAEAAEAAAAnAAUAAAAAAAEAAAAnAAYAAAAAAAEAAAAnAAcAAAAAAAIAAAAnABMAAAABAAAAAAAoAAAAAAABAAEAAAAoAAEAAAABAAEAAAAoAAIAAAABAAEAAAAoAAMAAAABAAEAAAAoAAQAAAABAAEAAAAoAAUAAAABAAEAAAAoAAYAAAABAAEAAAAoAAcAAAAEAAEAAAAoAAgAAAAAAAEAAAAoAAkAAAAAAAEAAAAoAAoAAAAAAAEAAAAoAAsAAAAAAAEAAAAoAAwAAAAAAAEAAAAoAA0AAAAAAAEAAAAoAA4AAAAAAAEAAAAoAA8AAAAAAAEAAAAoABAAAAAAAAEAAAAoABEAAAAAAAEAAAAoABIAAAAAAAEAAAAoABMAAAAEAAIAAAAaABMAAAABAAAAAAAbABMAAAABAAAAAAAcABMAAAABAAAAAAAdABMAAAABAAAAAAAeABMAAAABAAAAAAAaAAAAAAABAAIAAAAbAAAAAAABAAIAAAAcAAAAAAABAAIAAAAdAAAAAAABAAIAAAAeAAAAAAABAAIAAAAmAAcAAQACAAAAAAAlAAcAAQAEAAAAAAAkAAcAAQAEAAAAAAAjAAcAAQAEAAAAAAAJAAUAAAACAAIAAAAKAAUAAQABAAAAAAALAAUAAQAEAAAAAAAMAAUAAQAEAAAAAAANAAUAAQAEAAAAAAAOAAUAAQAEAAAAAAAPAAUAAQAAAAAAAAAiAAcAAQAEAAAAAAAhAAcAAQAEAAAAAAAgAAcAAQADAAAAAAALAAgAAQAFAAAAAAAMAAgAAQAEAAAAAAANAAgAAQAGAAAAAAA=")
 tile_set = SubResource("TileSet_xxtnn")
-
-[node name="Interactable" type="Area2D" parent="." unique_id=1689563660]
-position = Vector2(159, 241)
-rotation = 3.1415927
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable" unique_id=1147629661]
-shape = SubResource("CircleShape2D_5m132")
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable" unique_id=786379208]
-material = SubResource("ShaderMaterial_2sk2l")
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("6_txcic")
-script = ExtResource("5_qcnyv")
-interactedSprite = ExtResource("9_v4035")
-
-[node name="Interactable9" type="Area2D" parent="." unique_id=2007326243]
-position = Vector2(279, 556)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable9" unique_id=1720048474]
-shape = SubResource("CircleShape2D_5m132")
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable9" unique_id=386626833]
-material = SubResource("ShaderMaterial_2sk2l")
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("6_txcic")
-script = ExtResource("5_qcnyv")
-interactedSprite = ExtResource("9_v4035")
-
-[node name="Interactable10" type="Area2D" parent="." unique_id=368023334]
-position = Vector2(1067, 556)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable10" unique_id=1055297290]
-shape = SubResource("CircleShape2D_5m132")
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable10" unique_id=173146807]
-material = SubResource("ShaderMaterial_2sk2l")
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("6_txcic")
-script = ExtResource("5_qcnyv")
-interactedSprite = ExtResource("9_v4035")
-
-[node name="Interactable2" type="Area2D" parent="." unique_id=678921616]
-position = Vector2(1165, 110)
-rotation = -1.5707964
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable2" unique_id=726222182]
-shape = SubResource("CircleShape2D_5m132")
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable2" unique_id=1701936251]
-material = SubResource("ShaderMaterial_2sk2l")
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("6_txcic")
-script = ExtResource("5_qcnyv")
-interactedSprite = ExtResource("9_v4035")
-
-[node name="Interactable4" type="Area2D" parent="." unique_id=1503011322]
-position = Vector2(632, 81)
-rotation = -3.1415927
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable4" unique_id=1321922739]
-shape = SubResource("CircleShape2D_5m132")
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable4" unique_id=1419245242]
-material = SubResource("ShaderMaterial_2sk2l")
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("6_txcic")
-script = ExtResource("5_qcnyv")
-interactedSprite = ExtResource("9_v4035")
-
-[node name="Interactable5" type="Area2D" parent="." unique_id=765386978]
-position = Vector2(900, 81)
-rotation = -3.1415927
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable5" unique_id=1183806208]
-shape = SubResource("CircleShape2D_5m132")
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable5" unique_id=2022696931]
-material = SubResource("ShaderMaterial_2sk2l")
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("6_txcic")
-script = ExtResource("5_qcnyv")
-interactedSprite = ExtResource("9_v4035")
-
-[node name="Interactable3" type="Area2D" parent="." unique_id=1709029927]
-position = Vector2(386, 133)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable3" unique_id=148712736]
-shape = SubResource("CircleShape2D_5m132")
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable3" unique_id=170581762]
-material = SubResource("ShaderMaterial_2sk2l")
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("11_qoqfw")
-script = ExtResource("5_qcnyv")
-interactedSprite = ExtResource("12_0fs5j")
-
-[node name="Interactable6" type="Area2D" parent="." unique_id=1258435834]
-position = Vector2(1047, 195)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable6" unique_id=1434236566]
-shape = SubResource("CircleShape2D_5m132")
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable6" unique_id=1275438596]
-material = SubResource("ShaderMaterial_2sk2l")
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("11_qoqfw")
-script = ExtResource("5_qcnyv")
-interactedSprite = ExtResource("12_0fs5j")
-
-[node name="Interactable7" type="Area2D" parent="." unique_id=217910800]
-position = Vector2(934, 413)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable7" unique_id=752864925]
-shape = SubResource("CircleShape2D_5m132")
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable7" unique_id=47430306]
-material = SubResource("ShaderMaterial_2sk2l")
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("12_crvc6")
-script = ExtResource("5_qcnyv")
-interactedSprite = ExtResource("13_vi78m")
-
-[node name="Interactable8" type="Area2D" parent="." unique_id=1561190907]
-position = Vector2(395, 413)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable8" unique_id=1260262965]
-shape = SubResource("CircleShape2D_5m132")
-
-[node name="Sprite2D" type="Sprite2D" parent="Interactable8" unique_id=139463763]
-material = SubResource("ShaderMaterial_2sk2l")
-scale = Vector2(1.5, 1.5)
-texture = ExtResource("12_crvc6")
-script = ExtResource("5_qcnyv")
-interactedSprite = ExtResource("13_vi78m")
 
 [node name="CameraLimits_NotImplemented" type="Area2D" parent="." unique_id=943959522]
 visible = false
@@ -512,25 +379,160 @@ position = Vector2(0, 30)
 shape = SubResource("RectangleShape2D_wfjm3")
 one_way_collision = true
 
-[node name="Platform" type="StaticBody2D" parent="Obstacles" unique_id=1100304242]
+[node name="InteractableManager" type="Node2D" parent="." unique_id=1415504555]
+script = ExtResource("7_crvc6")
 
-[connection signal="body_entered" from="Interactable" to="Interactable/Sprite2D" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Interactable" to="Interactable/Sprite2D" method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="Interactable9" to="Interactable9/Sprite2D" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Interactable9" to="Interactable9/Sprite2D" method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="Interactable10" to="Interactable10/Sprite2D" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Interactable10" to="Interactable10/Sprite2D" method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="Interactable2" to="Interactable2/Sprite2D" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Interactable2" to="Interactable2/Sprite2D" method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="Interactable4" to="Interactable4/Sprite2D" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Interactable4" to="Interactable4/Sprite2D" method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="Interactable5" to="Interactable5/Sprite2D" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Interactable5" to="Interactable5/Sprite2D" method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="Interactable3" to="Interactable3/Sprite2D" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Interactable3" to="Interactable3/Sprite2D" method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="Interactable6" to="Interactable6/Sprite2D" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Interactable6" to="Interactable6/Sprite2D" method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="Interactable7" to="Interactable7/Sprite2D" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Interactable7" to="Interactable7/Sprite2D" method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="Interactable8" to="Interactable8/Sprite2D" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Interactable8" to="Interactable8/Sprite2D" method="_on_area_2d_body_exited"]
+[node name="Interactable" type="Area2D" parent="InteractableManager" unique_id=1689563660]
+position = Vector2(159, 241)
+rotation = -3.1415925
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableManager/Interactable" unique_id=1147629661]
+shape = SubResource("CircleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractableManager/Interactable" unique_id=786379208]
+material = SubResource("ShaderMaterial_2sk2l")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_txcic")
+script = ExtResource("5_qcnyv")
+interactedSprite = ExtResource("9_v4035")
+
+[node name="Interactable9" type="Area2D" parent="InteractableManager" unique_id=2007326243]
+position = Vector2(279, 556)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableManager/Interactable9" unique_id=1720048474]
+shape = SubResource("CircleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractableManager/Interactable9" unique_id=386626833]
+material = SubResource("ShaderMaterial_2sk2l")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_txcic")
+script = ExtResource("5_qcnyv")
+interactedSprite = ExtResource("9_v4035")
+
+[node name="Interactable10" type="Area2D" parent="InteractableManager" unique_id=368023334]
+position = Vector2(1067, 556)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableManager/Interactable10" unique_id=1055297290]
+shape = SubResource("CircleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractableManager/Interactable10" unique_id=173146807]
+material = SubResource("ShaderMaterial_2sk2l")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_txcic")
+script = ExtResource("5_qcnyv")
+interactedSprite = ExtResource("9_v4035")
+
+[node name="Interactable2" type="Area2D" parent="InteractableManager" unique_id=678921616]
+position = Vector2(1165, 110)
+rotation = -1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableManager/Interactable2" unique_id=726222182]
+shape = SubResource("CircleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractableManager/Interactable2" unique_id=1701936251]
+material = SubResource("ShaderMaterial_2sk2l")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_txcic")
+script = ExtResource("5_qcnyv")
+interactedSprite = ExtResource("9_v4035")
+
+[node name="Interactable4" type="Area2D" parent="InteractableManager" unique_id=1503011322]
+position = Vector2(632, 81)
+rotation = 3.1415925
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableManager/Interactable4" unique_id=1321922739]
+shape = SubResource("CircleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractableManager/Interactable4" unique_id=1419245242]
+material = SubResource("ShaderMaterial_2sk2l")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_txcic")
+script = ExtResource("5_qcnyv")
+interactedSprite = ExtResource("9_v4035")
+
+[node name="Interactable5" type="Area2D" parent="InteractableManager" unique_id=765386978]
+position = Vector2(900, 81)
+rotation = 3.1415925
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableManager/Interactable5" unique_id=1183806208]
+shape = SubResource("CircleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractableManager/Interactable5" unique_id=2022696931]
+material = SubResource("ShaderMaterial_2sk2l")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_txcic")
+script = ExtResource("5_qcnyv")
+interactedSprite = ExtResource("9_v4035")
+
+[node name="Interactable3" type="Area2D" parent="InteractableManager" unique_id=1709029927]
+position = Vector2(386, 133)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableManager/Interactable3" unique_id=148712736]
+shape = SubResource("CircleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractableManager/Interactable3" unique_id=170581762]
+material = SubResource("ShaderMaterial_2sk2l")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("11_qoqfw")
+script = ExtResource("5_qcnyv")
+interactedSprite = ExtResource("12_0fs5j")
+
+[node name="Interactable6" type="Area2D" parent="InteractableManager" unique_id=1258435834]
+position = Vector2(1047, 195)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableManager/Interactable6" unique_id=1434236566]
+shape = SubResource("CircleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractableManager/Interactable6" unique_id=1275438596]
+material = SubResource("ShaderMaterial_2sk2l")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("11_qoqfw")
+script = ExtResource("5_qcnyv")
+interactedSprite = ExtResource("12_0fs5j")
+
+[node name="Interactable7" type="Area2D" parent="InteractableManager" unique_id=217910800]
+position = Vector2(934, 413)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableManager/Interactable7" unique_id=752864925]
+shape = SubResource("CircleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractableManager/Interactable7" unique_id=47430306]
+material = SubResource("ShaderMaterial_2sk2l")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("12_crvc6")
+script = ExtResource("5_qcnyv")
+interactedSprite = ExtResource("13_vi78m")
+
+[node name="Interactable8" type="Area2D" parent="InteractableManager" unique_id=1561190907]
+position = Vector2(395, 413)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableManager/Interactable8" unique_id=1260262965]
+shape = SubResource("CircleShape2D_5m132")
+
+[node name="Sprite2D" type="Sprite2D" parent="InteractableManager/Interactable8" unique_id=139463763]
+material = SubResource("ShaderMaterial_2sk2l")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("12_crvc6")
+script = ExtResource("5_qcnyv")
+interactedSprite = ExtResource("13_vi78m")
+
+[connection signal="body_entered" from="InteractableManager/Interactable" to="InteractableManager/Interactable/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractableManager/Interactable" to="InteractableManager/Interactable/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="InteractableManager/Interactable9" to="InteractableManager/Interactable9/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractableManager/Interactable9" to="InteractableManager/Interactable9/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="InteractableManager/Interactable10" to="InteractableManager/Interactable10/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractableManager/Interactable10" to="InteractableManager/Interactable10/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="InteractableManager/Interactable2" to="InteractableManager/Interactable2/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractableManager/Interactable2" to="InteractableManager/Interactable2/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="InteractableManager/Interactable4" to="InteractableManager/Interactable4/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractableManager/Interactable4" to="InteractableManager/Interactable4/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="InteractableManager/Interactable5" to="InteractableManager/Interactable5/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractableManager/Interactable5" to="InteractableManager/Interactable5/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="InteractableManager/Interactable3" to="InteractableManager/Interactable3/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractableManager/Interactable3" to="InteractableManager/Interactable3/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="InteractableManager/Interactable6" to="InteractableManager/Interactable6/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractableManager/Interactable6" to="InteractableManager/Interactable6/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="InteractableManager/Interactable7" to="InteractableManager/Interactable7/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractableManager/Interactable7" to="InteractableManager/Interactable7/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="InteractableManager/Interactable8" to="InteractableManager/Interactable8/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="InteractableManager/Interactable8" to="InteractableManager/Interactable8/Sprite2D" method="_on_area_2d_body_exited"]
