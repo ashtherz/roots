@@ -1,6 +1,6 @@
 extends Node2D
 
-var suika_ball = preload("res://suika_ball.tscn");
+var suika_ball = preload("res://scenes/suika_ball.tscn")
 @onready var curr :Node = null;
 
 # Called when the node enters the scene tree for the first time.

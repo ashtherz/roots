@@ -20,6 +20,6 @@ func _on_body_entered(body : Node2D) -> void:
 			level += 1;
 			$CollisionShape2D.shape.radius *= 1.5;
 			$CollisionShape2D/Polygon2D.scale *= 1.5;
-			$CollisionShape2D/Label.text = str(level)
+			$CollisionShape2D/Polygon2D/Label.text = str(level)
 			for b in get_colliding_bodies():
 				_on_body_entered(b)
