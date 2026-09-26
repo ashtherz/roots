@@ -51,13 +51,13 @@ func _ready() -> void:
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if interactionState != "DISABLED":
+	if body == %Player and interactionState != "DISABLED":
 		interactionState = "IN_RANGE"
 		show_state()
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
-	if interactionState != "DISABLED":
+	if body == %Player and interactionState != "DISABLED":
 		interactionState = "INACTIVE"
 		show_state()
 
