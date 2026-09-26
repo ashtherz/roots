@@ -4,6 +4,8 @@ extends CharacterBody2D
 const MAX_SPEED = 600.0
 const JUMP_SPEED = -450.0
 
+const GRAVITY : float = 2
+const FLOATINESS : float = 0.4
 const NOT_ON_FLOOR_PENALTY : float = 0.25
 const BASE_ACCEL : float = 400
 const START_ACCEL_FACTOR : float = 4
@@ -48,8 +50,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y += JUMP_SPEED * jump_delta / JUMP_PERIOD
 	else:
 		# Fall due to gravity
-		var grav_factor : float = 0.8 if Input.is_action_pressed("PlatformerJump") else 1.0
-		velocity += get_gravity() * delta * grav_factor
+		var grav_factor : float = FLOATINESS if Input.is_action_pressed("PlatformerJump") else 1.0
+		velocity += get_gravity() * GRAVITY * delta * grav_factor
 	
 	
 	jump_time += delta
