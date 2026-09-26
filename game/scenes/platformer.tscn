@@ -55,11 +55,14 @@ radius = 50.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2sk2l"]
 shader = ExtResource("3_85uu4")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2sk2l"]
+size = Vector2(1152, 640)
+
 [node name="Platformer" type="Node2D" unique_id=1619893616]
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=497484441]
 unique_name_in_owner = true
-position = Vector2(131, 557)
+position = Vector2(260, 149)
 script = ExtResource("1_xxtnn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=720186370]
@@ -67,6 +70,14 @@ shape = SubResource("RectangleShape2D_5m132")
 
 [node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=6445630]
 texture = SubResource("PlaceholderTexture2D_5m132")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=210177395]
+position = Vector2(0, -100)
+zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
+limit_right = 1152
+limit_bottom = 640
 
 [node name="PlaceholderWall" type="Node2D" parent="." unique_id=1313653033]
 
@@ -138,6 +149,12 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_xlal6")
 script = ExtResource("5_qcnyv")
 interactedSprite = ExtResource("6_qcnyv")
+
+[node name="CameraLimits" type="Area2D" parent="." unique_id=943959522]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraLimits" unique_id=485224578]
+position = Vector2(576, 320)
+shape = SubResource("RectangleShape2D_2sk2l")
 
 [connection signal="body_entered" from="Interactable/Area2D" to="Interactable/Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Interactable/Area2D" to="Interactable/Sprite2D" method="_on_area_2d_body_exited"]
