@@ -1,7 +1,6 @@
 extends Sprite2D
 signal interacted
 
-@export var interactableId: String = "Unknown"
 @export var interactedSprite: Texture2D = null
 
 const INACTIVE_OUTLINE: float = 0.0
