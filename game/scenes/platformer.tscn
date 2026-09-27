@@ -89,6 +89,9 @@ radius = 50.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2sk2l"]
 shader = ExtResource("3_85uu4")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5m132"]
+size = Vector2(20, 186)
+
 [node name="Platformer" type="Node2D" unique_id=1619893616]
 script = ExtResource("1_fbug8")
 
@@ -455,6 +458,12 @@ offset_right = 562.0
 offset_bottom = 495.0
 text = "Interact: [Z]"
 
+[node name="ReturnTrigger" type="Area2D" parent="." unique_id=705954079]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ReturnTrigger" unique_id=1870253532]
+position = Vector2(-33, 560)
+shape = SubResource("RectangleShape2D_5m132")
+
 [connection signal="body_entered" from="InteractableManager/Interactable" to="InteractableManager/Interactable/Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="InteractableManager/Interactable" to="InteractableManager/Interactable/Sprite2D" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="InteractableManager/Interactable9" to="InteractableManager/Interactable9/Sprite2D" method="_on_area_2d_body_entered"]
@@ -475,3 +484,4 @@ text = "Interact: [Z]"
 [connection signal="body_exited" from="InteractableManager/Interactable7" to="InteractableManager/Interactable7/Sprite2D" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="InteractableManager/Interactable8" to="InteractableManager/Interactable8/Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="InteractableManager/Interactable8" to="InteractableManager/Interactable8/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="ReturnTrigger" to="InteractableManager" method="_on_return_trigger_body_entered"]

@@ -2,10 +2,12 @@ extends Node2D
 
 var sprites : Array[Sprite2D] = []
 var interactCount : int = 0
+var canReturn : bool = false
 
-func _play_game_win() -> void:
+func play_game_win() -> void:
 	for sprite in sprites:
-			sprite.light_up()
+		sprite.light_up()
+	canReturn = true
 
 func _on_interact(_sprite: Sprite2D) -> void:
 	interactCount += 1
@@ -13,7 +15,7 @@ func _on_interact(_sprite: Sprite2D) -> void:
 	if interactCount == 2:
 		%InteractHint.visible = false
 	if interactCount == len(sprites):
-		_play_game_win()
+		call_deferred("play_game_win")
 
 func _ready() -> void:
 	for node in get_children():
@@ -29,3 +31,8 @@ func update_mushrooms_left() -> void:
 
 func start_game() -> void:
 	update_mushrooms_left()
+
+
+func _on_return_trigger_body_entered(body: Node2D) -> void:
+	if body == %Player and canReturn:
+		SceneManager.return_to_previous_scene()
