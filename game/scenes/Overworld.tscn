@@ -94,6 +94,14 @@ position = Vector2(-2114, -564)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_gacct")
 
+[node name="IntroScreen2" type="Sprite2D" parent="." unique_id=410641601]
+modulate = Color(0.55, 0.48555836, 0.44550002, 1)
+z_index = -1
+texture_filter = 2
+position = Vector2(-2114, -564)
+scale = Vector2(-0.5, 0.5)
+texture = ExtResource("4_gacct")
+
 [node name="IntroCameraLimits" type="Area2D" parent="." unique_id=205241314]
 script = ExtResource("5_w51ix")
 enableSilhouette = true
