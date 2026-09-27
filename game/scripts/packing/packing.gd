@@ -97,8 +97,8 @@ func _finish() -> void:
 	finished.emit()
 	if next_scene != "":
 		get_tree().change_scene_to_file(next_scene)
-	elif SceneManager.previous_scene != null:
-		SceneManager.call_deferred("return_to_previous_scene")
+	elif SceneManager.previousScene != null:
+		SceneManager.call_deferred("return_to_previous_scene", "Packing")
 	else:
 		get_tree().quit()
 

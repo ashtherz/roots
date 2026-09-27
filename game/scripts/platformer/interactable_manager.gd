@@ -1,22 +1,31 @@
 extends Node2D
 
+@export var isOverworld = false
+
 var sprites : Array[Sprite2D] = []
 var interactCount : int = 0
 var canReturn : bool = false
 
-func play_game_win() -> void:
+func light_up_all() -> void:
 	for sprite in sprites:
 		sprite.light_up()
 	%Darkness.set_darkness(0.0)
+
+func play_game_win() -> void:
+	light_up_all()
 	canReturn = true
 
 func _on_interact(_sprite: Sprite2D) -> void:
+	if isOverworld:
+		# Do nothing in overworld
+		return
 	interactCount += 1
-	update_mushrooms_left()
-	if interactCount == 2:
-		%InteractHint.visible = false
-	if interactCount == len(sprites):
-		call_deferred("play_game_win")
+	if not isOverworld:
+		update_mushrooms_left()
+		if interactCount == 2:
+			%InteractHint.visible = false
+		if interactCount == len(sprites):
+			call_deferred("play_game_win")
 
 func _ready() -> void:
 	for node in get_children():
@@ -24,8 +33,13 @@ func _ready() -> void:
 			var sprite : Sprite2D = node.find_child("Sprite2D")
 			if sprite != null:
 				sprites.append(sprite)
-				sprite.interacted.connect(_on_interact)
-	start_game()
+				if isOverworld:
+					sprite.interactionState = "DISABLED"
+				else:
+					sprite.interacted.connect(_on_interact)
+
+	if not isOverworld:
+		start_game()
 
 func update_mushrooms_left() -> void:
 	%MushroomCount.text = str(len(sprites) - interactCount)
@@ -36,4 +50,4 @@ func start_game() -> void:
 
 func _on_return_trigger_body_entered(body: Node2D) -> void:
 	if body == %Player and canReturn:
-		SceneManager.return_to_previous_scene(%Player.global_position, %Player.velocity)
+		SceneManager.call_deferred("return_to_previous_scene", "Platformer", %Player.global_position, %Player.velocity)

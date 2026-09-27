@@ -25,12 +25,10 @@ func _ready() -> void:
 	death.suika_die.connect(die)
 
 func replay():
-	print("Replay!")
 	get_tree().reload_current_scene()
 	
 func back():
-	print("Go back!")
-	SceneManager.call_deferred("return_to_previous_scene")
+	SceneManager.call_deferred("return_to_previous_scene", "Suika")
 
 func die():
 	var msg = "Stinky..."

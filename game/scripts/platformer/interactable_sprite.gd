@@ -31,7 +31,7 @@ func show_state() -> void:
 			push_warning("Unknown state ", interactionState)
 
 func interact() -> void:
-	if interactedSprite != null:
+	if interactedSprite != null and interactionState != "DISABLED":
 		texture = interactedSprite
 	interactionState = "DISABLED"
 	show_state()
