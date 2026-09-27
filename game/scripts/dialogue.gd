@@ -1,7 +1,5 @@
 extends Panel
 
-signal textFinished
-
 # Copied from one of spdskatr's past projects - Perplex Temple
 
 ## Emitted when the box closes (queue finished, or skipped with EndDialogue).
@@ -114,9 +112,7 @@ func _process(delta):
 		return
 
 	if Input.is_action_pressed("EndDialogue"):
-		dialogue_queue.clear()
-		hide()  # Hide the text box when dialogue is finished
-		get_tree().paused = false
+		_close()
 	
 	if Input.is_action_pressed("Interact") and time_since_skip > skip_cooldown:
 		time_since_skip = 0
@@ -125,8 +121,7 @@ func _process(delta):
 			skip_current_text = true
 		else:
 			if dialogue_queue.is_empty():
-				hide()  # Hide the text box when dialogue is finished
-				get_tree().paused = false
+				_close()
 			else:
 				_process_text()
 	

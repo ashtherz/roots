@@ -10,27 +10,18 @@ func light_up_all() -> void:
 	for sprite in sprites:
 		sprite.light_up()
 	%Darkness.set_darkness(0.0)
-<<<<<<< HEAD
 
 func _hide_ending_layer() -> void:
 	%EndingLayer.visible = false
-	
-func _ending_text() -> void:
-	var dialogue = %DialogueLayer/Dialogue
-	dialogue.queue_text("player", "Placeholder ending")
-	dialogue.call_deferred("start_text", true)
-	dialogue.textFinished.connect(_hide_ending_layer)
 
 func play_game_win() -> void:
 	light_up_all()
 	if isOverworld:
 		return
 	%EndingLayer.visible = true
-=======
+	%DialogueLayer/Dialogue.finished.connect(_hide_ending_layer)
 	await %DialogueLayer/Dialogue.play("bedroom_after")
->>>>>>> 58b7888 (idk :()
 	canReturn = true
-	_ending_text()
 
 func _on_interact(_sprite: Sprite2D) -> void:
 	if isOverworld:
@@ -59,7 +50,9 @@ func _ready() -> void:
 		start_game()
 
 func update_mushrooms_left() -> void:
+	var darkness : float = 1 - interactCount / float(len(sprites))
 	%MushroomCount.text = str(len(sprites) - interactCount)
+	%Darkness.set_darkness(darkness)
 
 func start_game() -> void:
 	update_mushrooms_left()

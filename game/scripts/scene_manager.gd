@@ -3,7 +3,7 @@ extends Node
 ## Emitted after a minigame hands control back to the previous scene.
 signal returned_to_previous_scene
 
-var previous_scene: Node = null
+var previousScene: Node = null
 
 func switch_to_sub_scene(new_scene: PackedScene, transmit_player_position : bool = false) -> void:
 	var root = get_tree().root
@@ -48,4 +48,4 @@ func return_to_previous_scene(game_complete : String, player_position: Vector2 =
 	if player_position.is_finite():
 		player.global_position = player_position
 	player.velocity = player_velocity
-	previous_scene = null
+	previousScene = null
