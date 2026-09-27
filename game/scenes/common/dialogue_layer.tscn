@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ci1wwj1jxt6d0"]
 
 [ext_resource type="Script" uid="uid://b3nkt1j6gdmmt" path="res://scripts/dialogue.gd" id="1_iuuju"]
-[ext_resource type="Texture2D" uid="uid://ckxqlerfstcod" path="res://assets/sprites/faces/placeholder.png" id="2_3bvk5"]
+[ext_resource type="Texture2D" uid="uid://5ix4w1i1dqpv" path="res://assets/sprites/faces/squeak.png" id="2_iuuju"]
 
 [node name="DialogueLayer" type="CanvasLayer" unique_id=1581602448]
 layer = 2
@@ -37,6 +37,7 @@ offset_left = 1560.0
 offset_top = 40.0
 offset_right = 1780.0
 offset_bottom = 260.0
-texture = ExtResource("2_3bvk5")
+texture = ExtResource("2_iuuju")
+expand_mode = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Dialogue" unique_id=1233872054]

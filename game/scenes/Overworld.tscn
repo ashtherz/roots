@@ -127,7 +127,7 @@ position = Vector2(-1171, 712.5)
 shape = SubResource("RectangleShape2D_gu6s7")
 
 [node name="PlatformerTrigger" type="Area2D" parent="." unique_id=1817646557]
-position = Vector2(205, 563)
+position = Vector2(427, 563)
 script = ExtResource("6_bos8a")
 nextScene = ExtResource("7_i5y0i")
 transmitPlayerPosition = true

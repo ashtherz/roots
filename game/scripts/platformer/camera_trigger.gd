@@ -9,7 +9,6 @@ func _ready() -> void:
 	var size : Vector2 = $CollisionShape2D.shape.extents
 	topLeft = $CollisionShape2D.global_position - size
 	bottomRight = $CollisionShape2D.global_position + size
-	print(topLeft, bottomRight)
 
 func enable_limits() -> void:
 	var camera : Camera2D = %Player.camera
@@ -18,6 +17,7 @@ func enable_limits() -> void:
 	camera.limit_right = roundi(bottomRight.x)
 	camera.limit_bottom = roundi(bottomRight.y)
 	camera.limit_enabled = true
+	print("Camera enabled")
 
 
 func _on_body_entered(body: Node2D) -> void:

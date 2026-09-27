@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jc5w3x8vnw46"
-path="res://.godot/imported/pi_placeholder.png-a40f54dcfb31b3b2168f8e1823ed2f38.ctex"
+uid="uid://5ix4w1i1dqpv"
+path="res://.godot/imported/squeak.png-3b52734390bdff8005d507ad05ec079f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/faces/pi_placeholder.png"
-dest_files=["res://.godot/imported/pi_placeholder.png-a40f54dcfb31b3b2168f8e1823ed2f38.ctex"]
+source_file="res://assets/sprites/faces/squeak.png"
+dest_files=["res://.godot/imported/squeak.png-3b52734390bdff8005d507ad05ec079f.ctex"]
 
 [params]
 

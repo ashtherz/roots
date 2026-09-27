@@ -9,8 +9,7 @@ var whos_typing = "player"
 var is_typing = false
 var skip_current_text = false
 @onready var sprites = {
-	"player": preload("res://assets/sprites/faces/placeholder.png"), 
-	"npc": preload("res://assets/sprites/faces/pi_placeholder.png"),
+	"player": preload("res://assets/sprites/faces/squeak.png"),
 	"placeholder": preload("res://assets/sprites/faces/placeholder.png")
 }
 
