@@ -4,12 +4,18 @@ signal textFinished
 
 # Copied from one of spdskatr's past projects - Perplex Temple
 
+## Emitted when the box closes (queue finished, or skipped with EndDialogue).
+signal finished
+
+const DialogueLines = preload("res://scripts/dialogue_lines.gd")
+
 @export var text_speed: float = 0.02  # Speed of text appearing
 @onready var rng = RandomNumberGenerator.new()
 var dialogue_queue = []
 var whos_typing = "player"
 var is_typing = false
 var skip_current_text = false
+var _line_id: int = 0  # bumped to cancel an in-progress typewriter loop
 @onready var sprites = {
 	"player": preload("res://assets/sprites/faces/squeak.png"),
 	"placeholder": preload("res://assets/sprites/faces/placeholder.png")
@@ -26,6 +32,30 @@ var boop_cooldown: float = 0.05
 func queue_text(sprite: String, new_text: String):
 	dialogue_queue.append([sprite, new_text])
 
+## Play a named conversation from dialogue_lines.gd and wait until the box closes:
+##     await %DialogueLayer/Dialogue.play("intro")
+## If a conversation is already showing, the lines are appended to it.
+func play(key: String, pause_game: bool = true) -> void:
+	if not DialogueLines.LINES.has(key):
+		push_warning("No dialogue named '%s' in dialogue_lines.gd" % key)
+		return
+	for line in DialogueLines.LINES[key]:
+		if line is Array:
+			queue_text(line[0], line[1])
+		else:
+			queue_text("player", line)
+	start_text(pause_game)
+	await finished
+
+func _close() -> void:
+	_line_id += 1  # stop any line that's still typing (e.g. ESC mid-line)
+	is_typing = false
+	skip_current_text = false
+	dialogue_queue.clear()
+	hide()  # Hide the text box when dialogue is finished
+	get_tree().paused = false
+	finished.emit()
+
 func done():
 	while not dialogue_queue.is_empty():
 		await get_tree().create_timer(0.1).timeout
@@ -34,6 +64,7 @@ func start_text(pause_game = true):
 	if not visible:
 		# Start text box
 		show()
+		time_since_skip = 0  # don't let the Z press that opened the box also skip the first line
 		get_tree().paused = pause_game
 		await _process_text()
 
@@ -48,11 +79,16 @@ func _process_text():
 	is_typing = true
 	portrait.texture = sprite
 	label.text = ""
+	_line_id += 1
+	var my_id := _line_id
 	
 	for c in text_to_display:
 		label.text += c
 		if not skip_current_text:
 			await get_tree().create_timer(text_speed).timeout
+			# Box was closed (or the scene swapped out) while we were waiting
+			if my_id != _line_id or not is_inside_tree():
+				return
 
 	is_typing = false
 	skip_current_text = false
@@ -72,11 +108,15 @@ func _process(delta):
 		time_since_boop = 0
 		audio.play()
 	
+	# Only listen for input while the box is up; otherwise every Z press anywhere
+	# in the game would unpause the tree (and now emit `finished`).
+	if not visible:
+		return
+
 	if Input.is_action_pressed("EndDialogue"):
 		dialogue_queue.clear()
 		hide()  # Hide the text box when dialogue is finished
 		get_tree().paused = false
-		textFinished.emit()
 	
 	if Input.is_action_pressed("Interact") and time_since_skip > skip_cooldown:
 		time_since_skip = 0
@@ -87,7 +127,6 @@ func _process(delta):
 			if dialogue_queue.is_empty():
 				hide()  # Hide the text box when dialogue is finished
 				get_tree().paused = false
-				textFinished.emit()
 			else:
 				_process_text()
 	

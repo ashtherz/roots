@@ -10,6 +10,7 @@ func light_up_all() -> void:
 	for sprite in sprites:
 		sprite.light_up()
 	%Darkness.set_darkness(0.0)
+<<<<<<< HEAD
 
 func _hide_ending_layer() -> void:
 	%EndingLayer.visible = false
@@ -25,6 +26,9 @@ func play_game_win() -> void:
 	if isOverworld:
 		return
 	%EndingLayer.visible = true
+=======
+	await %DialogueLayer/Dialogue.play("bedroom_after")
+>>>>>>> 58b7888 (idk :()
 	canReturn = true
 	_ending_text()
 
