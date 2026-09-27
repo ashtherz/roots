@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://bkjly5oaclbo7"]
 
 [ext_resource type="Script" uid="uid://bi31rc3g2uyn8" path="res://scripts/audio_manager.gd" id="1_lxamp"]
+[ext_resource type="AudioStream" uid="uid://c7mtmpl42vbrw" path="res://assets/audio/Sheep.ogg" id="2_7f5g4"]
 
 [node name="AudioManager" type="Node2D" unique_id=1048940902]
 script = ExtResource("1_lxamp")
 
 [node name="MusicPlayer" type="AudioStreamPlayer2D" parent="." unique_id=104848808]
+stream = ExtResource("2_7f5g4")
+autoplay = true
 
 [node name="SFXPlayer1" type="AudioStreamPlayer2D" parent="." unique_id=1787434281]
 
