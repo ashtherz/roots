@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://cqwqd03mg7051" path="res://assets/sprites/platformer/shroom_on.png" id="26_bw7tk"]
 [ext_resource type="Texture2D" uid="uid://cjepwct1tu0vt" path="res://assets/sprites/overworld/kitchen.png" id="27_kwuyf"]
 [ext_resource type="PackedScene" uid="uid://1u1q77juosqs" path="res://scenes/packing.tscn" id="28_obta5"]
+[ext_resource type="Texture2D" uid="uid://b4habx556jx21" path="res://assets/sprites/overworld/bathroom.png" id="29_wbcx6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w51ix"]
 texture = ExtResource("2_puia7")
@@ -548,6 +549,11 @@ litSprite = ExtResource("26_bw7tk")
 position = Vector2(-3214, 733.99994)
 scale = Vector2(0.333, 0.333)
 texture = ExtResource("27_kwuyf")
+
+[node name="Bathroom" type="Sprite2D" parent="." unique_id=1670533439]
+position = Vector2(-2351.9998, 1294)
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("29_wbcx6")
 
 [connection signal="body_entered" from="IntroCameraLimits" to="IntroCameraLimits" method="_on_body_entered"]
 [connection signal="body_entered" from="MainCameraLimits" to="MainCameraLimits" method="_on_body_entered"]
