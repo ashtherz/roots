@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://ci1wwj1jxt6d0" path="res://scenes/common/dialogue_layer.tscn" id="9_0n4wa"]
 [ext_resource type="Script" uid="uid://c8dxrsncwckf" path="res://scripts/darkness.gd" id="11_ff6um"]
 [ext_resource type="Script" uid="uid://4pfqaa8w0d2r" path="res://scripts/overworld/darkness_source.gd" id="12_vvo0y"]
+[ext_resource type="Texture2D" uid="uid://b0jtbgat11wjr" path="res://assets/sprites/tilesets/wall.png" id="13_vvo0y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w51ix"]
 texture = ExtResource("2_puia7")
@@ -83,9 +84,10 @@ size = Vector2(20, 418)
 [node name="Overworld" type="Node2D" unique_id=1552427704]
 script = ExtResource("1_666lb")
 
-[node name="Player" parent="." unique_id=203250515 instance=ExtResource("1_c3gql")]
+[node name="Player" parent="." unique_id=203250515 node_paths=PackedStringArray("moveHint") instance=ExtResource("1_c3gql")]
 unique_name_in_owner = true
 position = Vector2(-1914, -409)
+moveHint = NodePath("../MoveHint")
 
 [node name="WallTileMap" type="TileMapLayer" parent="." unique_id=2066137824]
 z_index = 1
@@ -154,6 +156,22 @@ script = ExtResource("11_ff6um")
 [node name="DarknessSource" type="Node2D" parent="." unique_id=1041106459]
 position = Vector2(-146, 525)
 script = ExtResource("12_vvo0y")
+
+[node name="Wall" type="Node2D" parent="." unique_id=1037867312]
+position = Vector2(-500, 800)
+
+[node name="Sprite2D" type="Sprite2D" parent="Wall" unique_id=1471026223]
+scale = Vector2(3, 3)
+texture = ExtResource("13_vvo0y")
+
+[node name="MoveHint" type="Label" parent="." unique_id=1743073492]
+z_index = 2
+offset_left = -1995.0
+offset_top = -389.0
+offset_right = -1821.0
+offset_bottom = -340.0
+text = "Arrow Keys: Move
+[Z]: Interact / Play Text"
 
 [connection signal="body_entered" from="IntroCameraLimits" to="IntroCameraLimits" method="_on_body_entered"]
 [connection signal="body_entered" from="MainCameraLimits" to="MainCameraLimits" method="_on_body_entered"]

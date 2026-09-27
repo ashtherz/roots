@@ -129,10 +129,10 @@ offset_bottom = -60.0
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("13_vi78m")
 
-[node name="PlaceholderWall" type="Node2D" parent="." unique_id=1313653033]
-position = Vector2(1100, 800)
+[node name="Wall" type="Node2D" parent="." unique_id=1313653033]
+position = Vector2(-500, 800)
 
-[node name="Sprite2D" type="Sprite2D" parent="PlaceholderWall" unique_id=295966160]
+[node name="Sprite2D" type="Sprite2D" parent="Wall" unique_id=295966160]
 scale = Vector2(3, 3)
 texture = ExtResource("3_txcic")
 

@@ -22,6 +22,7 @@ const SPEED_JUMP_HEIGHT_PENALTY : float = 0.4 # Fast -> jump less high
 
 @export var camera : Camera2D
 @export var silhouette : AnimatedSprite2D
+@export var moveHint : Label = null
 
 # Speed management
 var speed_x : float = 0.0
@@ -79,6 +80,8 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction != 0:
+		if moveHint != null:
+			moveHint.visible = false
 		if is_on_floor():
 			animation = "run"
 		velocity.x = move_toward(velocity.x, direction * MAX_SPEED, delta * get_x_accel(velocity.x * direction, is_on_floor()))
