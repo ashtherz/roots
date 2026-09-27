@@ -15,7 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://b0jtbgat11wjr" path="res://assets/sprites/tilesets/wall.png" id="13_vvo0y"]
 [ext_resource type="Texture2D" uid="uid://euukf8dnbr4h" path="res://assets/sprites/platformer/bed.png" id="14_8fu3b"]
 [ext_resource type="Script" uid="uid://bnbrmtee24k52" path="res://scripts/platformer/interactable_manager.gd" id="15_kwuyf"]
+[ext_resource type="Texture2D" uid="uid://ce1lr83bom55f" path="res://assets/sprites/overworld/roots_3.png" id="16_0e4f7"]
 [ext_resource type="Shader" uid="uid://bw7rs7q2i56si" path="res://assets/item_outline.gdshader" id="16_obta5"]
+[ext_resource type="Texture2D" uid="uid://dtudubcophtp0" path="res://assets/sprites/overworld/roots_2.png" id="17_udys8"]
 [ext_resource type="Texture2D" uid="uid://drgns7we00gje" path="res://assets/sprites/platformer/torch.png" id="17_wbcx6"]
 [ext_resource type="Script" uid="uid://dk7xma07k385n" path="res://scripts/platformer/interactable_sprite.gd" id="18_dpgcr"]
 [ext_resource type="Texture2D" uid="uid://dgiuyamky2vmb" path="res://assets/sprites/platformer/torch_alt.png" id="19_0e4f7"]
@@ -29,6 +31,8 @@
 [ext_resource type="Texture2D" uid="uid://cjepwct1tu0vt" path="res://assets/sprites/overworld/kitchen.png" id="27_kwuyf"]
 [ext_resource type="PackedScene" uid="uid://1u1q77juosqs" path="res://scenes/packing.tscn" id="28_obta5"]
 [ext_resource type="Texture2D" uid="uid://b4habx556jx21" path="res://assets/sprites/overworld/bathroom.png" id="29_wbcx6"]
+[ext_resource type="Texture2D" uid="uid://kiu1bs2xqbos" path="res://assets/sprites/overworld/roots_1.png" id="31_86rkh"]
+[ext_resource type="Texture2D" uid="uid://d4e34msdh6pp7" path="res://assets/sprites/overworld/roots_4.png" id="32_335e5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w51ix"]
 texture = ExtResource("2_puia7")
@@ -395,6 +399,16 @@ position = Vector2(0, 30)
 shape = SubResource("RectangleShape2D_dlx4u")
 one_way_collision = true
 
+[node name="Sprite2D" type="Sprite2D" parent="BedroomClone/Obstacles" unique_id=898433681]
+position = Vector2(1073, 234)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("16_0e4f7")
+
+[node name="Sprite2D2" type="Sprite2D" parent="BedroomClone/Obstacles" unique_id=291217039]
+position = Vector2(607, 168)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("17_udys8")
+
 [node name="InteractableManager" type="Node2D" parent="BedroomClone" unique_id=1007577280]
 unique_name_in_owner = true
 position = Vector2(-79, -37)
@@ -549,6 +563,23 @@ litSprite = ExtResource("26_bw7tk")
 position = Vector2(-3214, 733.99994)
 scale = Vector2(0.333, 0.333)
 texture = ExtResource("27_kwuyf")
+
+[node name="Sprite2D" type="Sprite2D" parent="Kitchen" unique_id=1379573451]
+position = Vector2(144.14415, 93.09327)
+rotation = 4.712389
+scale = Vector2(-1, 1)
+texture = ExtResource("31_86rkh")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Kitchen" unique_id=244672979]
+position = Vector2(3234.2341, -2075.075)
+rotation = 4.712389
+scale = Vector2(-1, 1)
+texture = ExtResource("31_86rkh")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Kitchen" unique_id=822537698]
+position = Vector2(1960.9609, 1987.9882)
+rotation = 3.1415927
+texture = ExtResource("32_335e5")
 
 [node name="Bathroom" type="Sprite2D" parent="." unique_id=1670533439]
 position = Vector2(-2351.9998, 1294)

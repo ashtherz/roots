@@ -13,6 +13,8 @@
 [ext_resource type="Script" uid="uid://bfndo87ptunb6" path="res://scripts/platformer/camera_trigger.gd" id="8_86hxa"]
 [ext_resource type="Texture2D" uid="uid://euukf8dnbr4h" path="res://assets/sprites/platformer/bed.png" id="8_bareo"]
 [ext_resource type="Texture2D" uid="uid://dgiuyamky2vmb" path="res://assets/sprites/platformer/torch_alt.png" id="9_v4035"]
+[ext_resource type="Texture2D" uid="uid://ce1lr83bom55f" path="res://assets/sprites/overworld/roots_3.png" id="10_qhiny"]
+[ext_resource type="Texture2D" uid="uid://dtudubcophtp0" path="res://assets/sprites/overworld/roots_2.png" id="11_acgxb"]
 [ext_resource type="Texture2D" uid="uid://bl4snfra5t1l" path="res://assets/sprites/platformer/pot_before.png" id="11_qoqfw"]
 [ext_resource type="Texture2D" uid="uid://cxgvqgatki6pt" path="res://assets/sprites/platformer/pot_off.png" id="12_0fs5j"]
 [ext_resource type="Texture2D" uid="uid://ddr7pt4cec6jr" path="res://assets/sprites/platformer/shroom_before.png" id="12_crvc6"]
@@ -319,6 +321,16 @@ texture = ExtResource("8_bareo")
 position = Vector2(0, 30)
 shape = SubResource("RectangleShape2D_wfjm3")
 one_way_collision = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacles" unique_id=773068216]
+position = Vector2(1073, 234)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("10_qhiny")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Obstacles" unique_id=1447232294]
+position = Vector2(607, 168)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_acgxb")
 
 [node name="InteractableManager" type="Node2D" parent="." unique_id=1415504555]
 position = Vector2(-79, -37)
