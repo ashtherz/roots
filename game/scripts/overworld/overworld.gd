@@ -2,6 +2,7 @@ extends Node2D
 
 
 func _ready() -> void:
+	%IntroCameraLimits.call_deferred("enable_limits")
 	lorem_ipsum()
 
 func lorem_ipsum() -> void:

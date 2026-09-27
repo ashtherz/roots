@@ -18,6 +18,8 @@
 [ext_resource type="Texture2D" uid="uid://dw8car2na3sx0" path="res://assets/sprites/platformer/shroom_off.png" id="13_vi78m"]
 [ext_resource type="Texture2D" uid="uid://dfalf34mdjm5a" path="res://assets/sprites/platformer/pot_on.png" id="15_siti5"]
 [ext_resource type="Texture2D" uid="uid://cqwqd03mg7051" path="res://assets/sprites/platformer/shroom_on.png" id="18_wxju3"]
+[ext_resource type="PackedScene" uid="uid://ci1wwj1jxt6d0" path="res://scenes/common/dialogue_layer.tscn" id="19_siti5"]
+[ext_resource type="Script" uid="uid://c8dxrsncwckf" path="res://scripts/darkness.gd" id="20_wxju3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_siti5"]
 texture = ExtResource("2_j2uy2")
@@ -107,15 +109,24 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -129.0
-offset_top = -105.0
-offset_right = 2.0
-offset_bottom = -82.0
+offset_left = -136.0
+offset_top = -98.0
+offset_right = -5.0
+offset_bottom = -75.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_vertical = 10
 text = "0"
 horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="Player" unique_id=1966460525]
+z_index = 2
+offset_left = -9.0
+offset_top = -105.0
+offset_right = 36.0
+offset_bottom = -60.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("13_vi78m")
 
 [node name="PlaceholderWall" type="Node2D" parent="." unique_id=1313653033]
 position = Vector2(1100, 800)
@@ -463,6 +474,14 @@ text = "Interact: [Z]"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ReturnTrigger" unique_id=1870253532]
 position = Vector2(-33, 560)
 shape = SubResource("RectangleShape2D_5m132")
+
+[node name="DialogueLayer" parent="." unique_id=1581602448 instance=ExtResource("19_siti5")]
+unique_name_in_owner = true
+
+[node name="Darkness" type="CanvasModulate" parent="." unique_id=25985393]
+unique_name_in_owner = true
+color = Color(0.2509804, 0.2509804, 0.2509804, 1)
+script = ExtResource("20_wxju3")
 
 [connection signal="body_entered" from="InteractableManager/Interactable" to="InteractableManager/Interactable/Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="InteractableManager/Interactable" to="InteractableManager/Interactable/Sprite2D" method="_on_area_2d_body_exited"]

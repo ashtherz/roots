@@ -7,6 +7,7 @@ var canReturn : bool = false
 func play_game_win() -> void:
 	for sprite in sprites:
 		sprite.light_up()
+	%Darkness.set_darkness(0.0)
 	canReturn = true
 
 func _on_interact(_sprite: Sprite2D) -> void:

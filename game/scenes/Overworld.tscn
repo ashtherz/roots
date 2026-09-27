@@ -8,8 +8,8 @@
 [ext_resource type="Script" uid="uid://bfndo87ptunb6" path="res://scripts/platformer/camera_trigger.gd" id="5_w51ix"]
 [ext_resource type="Script" uid="uid://dd68kak3i7n04" path="res://scenes/scene_trigger.gd" id="6_bos8a"]
 [ext_resource type="PackedScene" uid="uid://c3wauulm1dttu" path="res://scenes/platformer.tscn" id="7_i5y0i"]
-[ext_resource type="PackedScene" uid="uid://ci1wwj1jxt6d0" path="res://scenes/common/dialogue_layer.tscn" id="9_0n4wa"]
 [ext_resource type="PackedScene" uid="uid://8xn22ho5n0un" path="res://scenes/suika.tscn" id="8_b5655"]
+[ext_resource type="PackedScene" uid="uid://ci1wwj1jxt6d0" path="res://scenes/common/dialogue_layer.tscn" id="9_0n4wa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w51ix"]
 texture = ExtResource("2_puia7")
@@ -83,7 +83,7 @@ script = ExtResource("1_666lb")
 
 [node name="Player" parent="." unique_id=203250515 instance=ExtResource("1_c3gql")]
 unique_name_in_owner = true
-position = Vector2(-1914, -435)
+position = Vector2(-1914, -409)
 
 [node name="WallTileMap" type="TileMapLayer" parent="." unique_id=2066137824]
 z_index = 1
@@ -107,6 +107,7 @@ scale = Vector2(-0.5, 0.5)
 texture = ExtResource("4_gacct")
 
 [node name="IntroCameraLimits" type="Area2D" parent="." unique_id=205241314]
+unique_name_in_owner = true
 script = ExtResource("5_w51ix")
 enableSilhouette = true
 
@@ -132,6 +133,7 @@ shape = SubResource("RectangleShape2D_2sk2l")
 
 [node name="DialogueLayer" parent="." unique_id=1581602448 instance=ExtResource("9_0n4wa")]
 unique_name_in_owner = true
+
 [node name="SuikaTrigger" type="Area2D" parent="." unique_id=1247282748]
 position = Vector2(205, 563)
 script = ExtResource("6_bos8a")

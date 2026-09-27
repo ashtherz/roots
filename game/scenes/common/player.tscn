@@ -89,6 +89,16 @@ animations = [{
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w51ix"]
 shader = ExtResource("3_sueyl")
 
+[sub_resource type="Gradient" id="Gradient_sueyl"]
+offsets = PackedFloat32Array(0, 0.6257669, 0.69325155)
+colors = PackedColorArray(1, 1, 1, 1, 0.8660714, 0.8660714, 0.8660714, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5m132"]
+gradient = SubResource("Gradient_sueyl")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
 [node name="Player" type="CharacterBody2D" unique_id=203250515 node_paths=PackedStringArray("camera", "silhouette")]
 script = ExtResource("1_wkro7")
 camera = NodePath("Camera2D")
@@ -121,3 +131,9 @@ position = Vector2(0, -19)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_5m132")
 autoplay = "default"
+
+[node name="Spotlight" type="PointLight2D" parent="." unique_id=682392481]
+visible = false
+position = Vector2(0, -20)
+texture = SubResource("GradientTexture2D_5m132")
+texture_scale = 3.0

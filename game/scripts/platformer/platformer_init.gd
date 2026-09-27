@@ -9,3 +9,4 @@ func _ready() -> void:
 	camera.limit_right = 1312
 	camera.limit_bottom = 640
 	camera.limit_enabled = true
+	%Player/Spotlight.visible = true
