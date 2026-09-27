@@ -14,6 +14,13 @@ func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 	level = 1
 
+func merge():
+	level += 1;
+	$CollisionShape2D.shape.radius *= sizes[level-1];
+	$CollisionShape2D/Sprite2D.scale *= sizes[level-1];
+	$CollisionShape2D/Sprite2D/Label.text = str(level)
+	$CollisionShape2D/Sprite2D.region_rect = textures[level-1].region
+
 func _on_body_entered(body : Node2D) -> void:
 	if level == -1:
 		return
@@ -22,11 +29,7 @@ func _on_body_entered(body : Node2D) -> void:
 		if body.level == level and level < 8:
 			body.level = -1;
 			body.queue_free()
-			level += 1;
-			$CollisionShape2D.shape.radius *= sizes[level-1];
-			$CollisionShape2D/Sprite2D.scale *= sizes[level-1];
-			$CollisionShape2D/Sprite2D/Label.text = str(level)
-			$CollisionShape2D/Sprite2D.region_rect = textures[level-1].region
+			merge()
 			add_points.emit(level);
 			for b in get_colliding_bodies():
 				_on_body_entered(b)

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dr1c7ntp5hnve" path="res://assets/sprites/suika/Bathtub.png" id="2_k0b4q"]
 [ext_resource type="Script" uid="uid://buxng3piew1g8" path="res://scripts/suika/suika_death.gd" id="3_flqyl"]
 [ext_resource type="Texture2D" uid="uid://bpv31xyanpevw" path="res://assets/sprites/cgs/bathroom.png" id="5_k0b4q"]
+[ext_resource type="Theme" uid="uid://2ib07f6qsldu" path="res://assets/sprites/ui/ui_theme.tres" id="6_cgevu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3lic7"]
 size = Vector2(9520, 341)
@@ -27,15 +28,15 @@ scale = Vector2(1.0045553, 1.0016081)
 position = Vector2(539, 319)
 scale = Vector2(1.2097814, 1.2315612)
 
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Suikabowl/Area2D" unique_id=1393097940]
+position = Vector2(251.1843, 40.896484)
+scale = Vector2(3.3107474, 3.680093)
+polygon = PackedVector2Array(-119.312, -1.3130188, -119.81134, 25.782188, -118.81266, 59.045418, -117.064964, 102.00123, -111.072876, 118.74299, -85.85616, 135.04416, -47.906265, 135.92532, 80.673996, 135.92532, 110.88411, 135.92532, 136.10081, 135.48474, 149.33336, 132.84131, 174.05074, 117.20098, 174.55006, 53.53826, 174.79973, 24.019897, 174.05074, -3.736168, 183.03886, 5.515854, 187.03358, 71.161156, 172.55269, 132.84131, 128.11137, 144.0759, 92.6566, 149.89175, -105.829796, 144.95706, -123.80607, 105.52581, -123.80607, 54.639687, -123.05705, 7.278145)
+
 [node name="Path26" type="Sprite2D" parent="Suikabowl/Area2D" unique_id=526612553]
 position = Vector2(337.25104, 210.35931)
 scale = Vector2(0.62912273, 0.5734342)
 texture = ExtResource("2_k0b4q")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Suikabowl/Area2D/Path26" unique_id=1393097940]
-position = Vector2(-136.80444, -295.52277)
-scale = Vector2(5.262482, 6.417638)
-polygon = PackedVector2Array(-119.312, -1.3130188, -119.81134, 25.782188, -118.81266, 59.045418, -117.064964, 102.00123, -111.072876, 118.74299, -85.85616, 135.04416, -47.906265, 135.92532, 80.673996, 135.92532, 110.88411, 135.92532, 136.10081, 135.48474, 149.33336, 132.84131, 174.05074, 117.20098, 174.55006, 53.53826, 174.79973, 24.019897, 174.05074, -3.736168, 183.03886, 5.515854, 187.03358, 71.161156, 172.55269, 132.84131, 128.11137, 144.0759, 92.6566, 149.89175, -105.829796, 144.95706, -123.80607, 105.52581, -123.80607, 54.639687, -123.05705, 7.278145)
 
 [node name="GameController" type="Node2D" parent="." unique_id=211265387 node_paths=PackedStringArray("points_display")]
 position = Vector2(987, 184)
@@ -59,10 +60,10 @@ scale = Vector2(0.8159959, 0.7623476)
 texture = ExtResource("5_k0b4q")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Endscreen" unique_id=246066561]
-offset_left = 301.6252
-offset_top = -474.68506
-offset_right = 1145.9923
-offset_bottom = 90.67383
+offset_left = 378.83148
+offset_top = -485.17896
+offset_right = 1223.1985
+offset_bottom = 80.17993
 theme_override_fonts/normal_font = ExtResource("1_0g0qn")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
@@ -74,14 +75,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Replay" type="Button" parent="Endscreen" unique_id=658519704]
-offset_left = 528.34204
-offset_top = 68.37433
-offset_right = 931.6835
-offset_bottom = 147.24255
+offset_left = 596.96985
+offset_top = 22.463512
+offset_right = 1030.9698
+offset_bottom = 157.46352
+theme = ExtResource("6_cgevu")
+text = "Replay"
 
-[node name="Replay" type="Button" parent="Endscreen/Replay" unique_id=2049996639]
-layout_mode = 0
-offset_left = 528.34204
-offset_top = 68.37433
-offset_right = 931.6835
-offset_bottom = 147.24255
+[node name="Finish" type="Button" parent="Endscreen" unique_id=284789491]
+offset_left = 598.1954
+offset_top = 175.9368
+offset_right = 1032.1953
+offset_bottom = 310.9368
+theme = ExtResource("6_cgevu")
+text = "Back"

@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 	var mouse_pos = get_global_mouse_position()
 	spawn_lim -= delta;
 	if spawn_lim <= 0:
-		curr.visible = true;
+		curr.get_node("CollisionShape2D").get_node("Sprite2D").modulate.a = 1;
 	
 	curr.global_position.x = min(max(mouse_pos.x, left_lim), right_lim);
 	
@@ -38,6 +38,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 		curr.gravity_scale = 1.0;
 		curr.get_node("CollisionShape2D").disabled = false
+		gain_points(1)
 		curr = spawn_ball();
 
 func spawn_ball() -> Node2D:
@@ -47,8 +48,12 @@ func spawn_ball() -> Node2D:
 	new_ball.add_points.connect(gain_points)
 	new_ball.gravity_scale = 0.0;
 	new_ball.get_node("CollisionShape2D").disabled = true
+	new_ball.get_node("CollisionShape2D").get_node("Sprite2D").modulate.a = 0.3;
 	spawn_lim = 1;
-	new_ball.visible = false;
+	
+	var limit = min(log(total_points) / log(12), 3)
+	for i in range(randi_range(0,limit)):
+		new_ball.merge()
 	return new_ball;
 
 func gain_points(points):
