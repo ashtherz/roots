@@ -8,6 +8,12 @@ var suika_ball = preload("res://scenes/suika_ball.tscn")
 @export var right_lim = 10;
 @export var points_display : Label
 
+var bubble_pops = [
+	preload("res://assets/audio/universfield-bubble-pop-06-351337.mp3"),
+ 	preload("res://assets/audio/universfield-bubble-pop-07-487896.mp3"),
+	preload("res://assets/audio/universfield-bubble-pop-08-351339.mp3")
+]
+
 var spawn_lim = 0;
 var total_points = 0;
 var dead = false;
@@ -76,3 +82,4 @@ func spawn_ball() -> Node2D:
 func gain_points(points):
 	total_points += points
 	points_display.text = "Effervescence: " + str(total_points)
+	AudioManager._on_play_sfx(bubble_pops[randi_range(0,2)])

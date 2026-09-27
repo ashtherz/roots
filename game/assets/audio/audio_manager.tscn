@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bkjly5oaclbo7"]
+
+[ext_resource type="Script" uid="uid://bi31rc3g2uyn8" path="res://scripts/audio_manager.gd" id="1_lxamp"]
+
+[node name="AudioManager" type="Node2D" unique_id=1048940902]
+script = ExtResource("1_lxamp")
+
+[node name="MusicPlayer" type="AudioStreamPlayer2D" parent="." unique_id=104848808]
+
+[node name="SFXPlayer1" type="AudioStreamPlayer2D" parent="." unique_id=1787434281]
+
+[node name="SFXPlayer2" type="AudioStreamPlayer2D" parent="." unique_id=904430385]
+
+[node name="SFXPlayer3" type="AudioStreamPlayer2D" parent="." unique_id=1018785481]
