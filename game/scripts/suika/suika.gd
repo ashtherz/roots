@@ -8,8 +8,6 @@ var suika_ball = preload("res://scenes/suika_ball.tscn")
 @export var right_lim = 10;
 @export var points_display : Label
 
-@export var overworld : PackedScene;
-
 var spawn_lim = 0;
 var total_points = 0;
 var dead = false;
