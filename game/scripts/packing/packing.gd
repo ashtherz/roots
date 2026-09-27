@@ -62,7 +62,7 @@ func _ready() -> void:
 	add_child(hint)
 
 	continue_btn = Button.new()
-	continue_btn.text = "Continue  →"
+	continue_btn.text = "Continue"
 	continue_btn.add_theme_font_size_override("font_size", 28)
 	continue_btn.custom_minimum_size = Vector2(240, 52)
 	continue_btn.size = continue_btn.custom_minimum_size
