@@ -5,7 +5,7 @@ const MAX_SPEED = 700.0
 const JUMP_SPEED = -600.0
 
 const GRAVITY : float = 2
-const FLOATINESS : float = 0.8
+const FLOATINESS : float = 0.75
 
 const BASE_ACCEL : float = 400
 const NOT_ON_FLOOR_PENALTY : float = 0.25
@@ -19,6 +19,9 @@ const JUMP_PERIOD : float = 0.1
 const COYOTE_TIME : float = 0.07  # approx 2 physics frames
 const JUMP_HEIGHT_PENALTY_THRESHOLD : float = MAX_SPEED * 0.5
 const SPEED_JUMP_HEIGHT_PENALTY : float = 0.4 # Fast -> jump less high
+
+@export var camera : Camera2D
+@export var silhouette : AnimatedSprite2D
 
 # Speed management
 var speed_x : float = 0.0
@@ -86,10 +89,13 @@ func _physics_process(delta: float) -> void:
 	
 	if direction < 0:
 		$AnimatedSprite2D.flip_h = false
+		silhouette.flip_h = false
 	
 	if direction > 0:
 		$AnimatedSprite2D.flip_h = true
+		silhouette.flip_h = true
 	
 	$AnimatedSprite2D.play(animation)
+	silhouette.play(animation)
 
 	move_and_slide()

@@ -1,7 +1,8 @@
 extends Sprite2D
-signal interacted
+signal interacted(sprite: Sprite2D)
 
 @export var interactedSprite: Texture2D = null
+@export var litSprite: Texture2D = null
 
 const INACTIVE_OUTLINE: float = 0.0
 const IN_RANGE_OUTLINE: float = 2.0 # outline width in game pixels
@@ -30,10 +31,15 @@ func show_state() -> void:
 			push_warning("Unknown state ", interactionState)
 
 func interact() -> void:
-	texture = interactedSprite
+	if interactedSprite != null:
+		texture = interactedSprite
 	interactionState = "DISABLED"
 	show_state()
-	interacted.emit()
+	interacted.emit(self)
+
+func light_up() -> void:
+	if litSprite != null:
+		texture = litSprite
 
 # The shader can only draw inside the sprite's rect, so grow the drawn region past the
 # texture to leave room for the outline.

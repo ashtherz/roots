@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://c3wauulm1dttu"]
 
-[ext_resource type="Script" uid="uid://3yfmk30b3e7c" path="res://scripts/platformer/player.gd" id="1_xxtnn"]
+[ext_resource type="PackedScene" uid="uid://cna6xu1sauvsb" path="res://scenes/common/player.tscn" id="1_850bg"]
+[ext_resource type="Script" uid="uid://cinabveum2th3" path="res://scripts/platformer/platformer_init.gd" id="1_fbug8"]
 [ext_resource type="Texture2D" uid="uid://dv7e5eiqndy8s" path="res://assets/sprites/tilesets/platformer_tileset.png" id="2_j2uy2"]
-[ext_resource type="Texture2D" uid="uid://d12y7v4iodtxu" path="res://assets/sprites/platformer/mouse.png" id="2_no5jp"]
 [ext_resource type="Shader" uid="uid://bw7rs7q2i56si" path="res://assets/item_outline.gdshader" id="3_85uu4"]
 [ext_resource type="Texture2D" uid="uid://b0jtbgat11wjr" path="res://assets/sprites/tilesets/wall.png" id="3_txcic"]
 [ext_resource type="Script" uid="uid://dk7xma07k385n" path="res://scripts/platformer/interactable_sprite.gd" id="5_qcnyv"]
@@ -14,91 +14,12 @@
 [ext_resource type="Texture2D" uid="uid://bl4snfra5t1l" path="res://assets/sprites/platformer/pot_before.png" id="11_qoqfw"]
 [ext_resource type="Texture2D" uid="uid://cxgvqgatki6pt" path="res://assets/sprites/platformer/pot_off.png" id="12_0fs5j"]
 [ext_resource type="Texture2D" uid="uid://ddr7pt4cec6jr" path="res://assets/sprites/platformer/shroom_before.png" id="12_crvc6"]
+[ext_resource type="Texture2D" uid="uid://bq2p0s6hotqvh" path="res://assets/sprites/platformer/torch_lit.png" id="12_fbug8"]
 [ext_resource type="Texture2D" uid="uid://dw8car2na3sx0" path="res://assets/sprites/platformer/shroom_off.png" id="13_vi78m"]
+[ext_resource type="Texture2D" uid="uid://dfalf34mdjm5a" path="res://assets/sprites/platformer/pot_on.png" id="15_siti5"]
+[ext_resource type="Texture2D" uid="uid://cqwqd03mg7051" path="res://assets/sprites/platformer/shroom_on.png" id="18_wxju3"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5m132"]
-size = Vector2(36, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bareo"]
-atlas = ExtResource("2_no5jp")
-region = Rect2(48, 0, 48, 44)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_txcic"]
-atlas = ExtResource("2_no5jp")
-region = Rect2(144, 0, 48, 44)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_no5jp"]
-atlas = ExtResource("2_no5jp")
-region = Rect2(192, 0, 48, 44)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v5gpo"]
-atlas = ExtResource("2_no5jp")
-region = Rect2(0, 0, 48, 44)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v4035"]
-atlas = ExtResource("2_no5jp")
-region = Rect2(96, 0, 48, 44)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6yj8j"]
-atlas = ExtResource("2_no5jp")
-region = Rect2(144, 0, 48, 44)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qoqfw"]
-atlas = ExtResource("2_no5jp")
-region = Rect2(96, 0, 48, 44)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0fs5j"]
-atlas = ExtResource("2_no5jp")
-region = Rect2(192, 0, 48, 44)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_5m132"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bareo")
-}],
-"loop": 1,
-"name": &"default",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_txcic")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_no5jp")
-}],
-"loop": 1,
-"name": &"fall",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v5gpo")
-}],
-"loop": 1,
-"name": &"jump_up",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v4035")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6yj8j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qoqfw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0fs5j")
-}],
-"loop": 1,
-"name": &"run",
-"speed": 12.0
-}]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_85uu4"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_siti5"]
 texture = ExtResource("2_j2uy2")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -127,7 +48,7 @@ texture = ExtResource("2_j2uy2")
 1:1/0 = 0
 1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v4035"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wxju3"]
 texture = ExtResource("5_v5gpo")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -153,8 +74,8 @@ texture = ExtResource("5_v5gpo")
 
 [sub_resource type="TileSet" id="TileSet_xxtnn"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_85uu4")
-sources/1 = SubResource("TileSetAtlasSource_v4035")
+sources/0 = SubResource("TileSetAtlasSource_siti5")
+sources/1 = SubResource("TileSetAtlasSource_wxju3")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2sk2l"]
 size = Vector2(1152, 640)
@@ -169,29 +90,29 @@ radius = 50.0
 shader = ExtResource("3_85uu4")
 
 [node name="Platformer" type="Node2D" unique_id=1619893616]
+script = ExtResource("1_fbug8")
 
-[node name="Player" type="CharacterBody2D" parent="." unique_id=497484441]
+[node name="Player" parent="." unique_id=203250515 instance=ExtResource("1_850bg")]
 unique_name_in_owner = true
 position = Vector2(273, 586)
-script = ExtResource("1_xxtnn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=720186370]
-shape = SubResource("RectangleShape2D_5m132")
-
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=210177395]
-position = Vector2(0, -100)
-zoom = Vector2(2, 2)
-limit_left = 0
-limit_top = 0
-limit_right = 1312
-limit_bottom = 640
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player" unique_id=484355868]
-z_index = 1
-position = Vector2(0, -19)
-scale = Vector2(3, 3)
-sprite_frames = SubResource("SpriteFrames_5m132")
-autoplay = "default"
+[node name="MushroomCount" type="Label" parent="Player" unique_id=976490587]
+unique_name_in_owner = true
+z_index = 2
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -129.0
+offset_top = -105.0
+offset_right = 2.0
+offset_bottom = -82.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 10
+text = "0"
+horizontal_alignment = 2
 
 [node name="PlaceholderWall" type="Node2D" parent="." unique_id=1313653033]
 position = Vector2(1100, 800)
@@ -203,7 +124,7 @@ texture = ExtResource("3_txcic")
 [node name="WallTileMap" type="TileMapLayer" parent="." unique_id=1229782888]
 z_index = 1
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray("AAACABMAAAABAAAAAAADABMAAAABAAAAAAD//xMAAAABAAAAAAAAABMAAAABAAAAAAABABMAAAABAAAAAAAEABMAAAABAAAAAAAFABMAAAABAAAAAAAGABMAAAABAAAAAAAHABMAAAABAAAAAAAIABMAAAABAAAAAAAJABMAAAABAAAAAAAKABMAAAABAAAAAAALABMAAAABAAAAAAAMABMAAAABAAAAAAANABMAAAABAAAAAAAOABMAAAABAAAAAAAPABMAAAABAAAAAAAQABMAAAABAAAAAAARABMAAAABAAAAAAASABMAAAABAAAAAAATABMAAAABAAAAAAAUABMAAAABAAAAAAAVABMAAAABAAAAAAAWABMAAAABAAAAAAAXABMAAAABAAAAAAAYABMAAAABAAAAAAAZABMAAAABAAAAAAAZAAAAAAABAAIAAAAYAAAAAAABAAIAAAAXAAAAAAABAAIAAAAWAAAAAAABAAIAAAAVAAAAAAABAAIAAAAUAAAAAAABAAIAAAATAAAAAAABAAIAAAASAAAAAAABAAIAAAARAAAAAAABAAIAAAAQAAAAAAABAAIAAAAPAAAAAAABAAIAAAAOAAAAAAABAAIAAAANAAAAAAABAAIAAAAMAAAAAAADAAEAAAALAAAAAAABAAEAAAAKAAAAAAABAAEAAAAJAAAAAAABAAEAAAAIAAAAAAABAAEAAAAHAAAAAAABAAEAAAAGAAAAAAABAAEAAAAFAAAAAAABAAEAAAAEAAAAAAABAAEAAAADAAAAAAABAAEAAAACAAAAAAABAAEAAAABAAAAAAABAAEAAAAAAAEAAAABAAEAAAAAAAIAAAABAAEAAAAAAAMAAAABAAEAAAAAAAQAAAABAAEAAAAAAAUAAAABAAEAAAAAAAYAAAABAAEAAAAAAAcAAAADAAEAAAAAAAgAAAACAAEAAAAAAAkAAAACAAEAAAAAAAoAAAACAAEAAAAAAAsAAAACAAEAAAAAAAwAAAACAAEAAAAAAA0AAAACAAEAAAAAAA4AAAACAAEAAAAAAAAAAAABAAEAAAAAAA8AAAACAAIAAAD//w8AAAABAAIAAAD+/xIAAAACAAEAAAD+/xEAAAACAAEAAAD+/xAAAAACAAEAAAABAAUAAAABAAEAAAACAAUAAAADAAEAAAADAAUAAAABAAIAAAAEAAUAAAABAAIAAAAFAAUAAAABAAIAAAAGAAUAAAABAAIAAAAHAAUAAAABAAIAAAAKAAMAAAACAAIAAAAKAAIAAAACAAEAAAAKAAEAAAADAAEAAAAJAAEAAAABAAEAAAAJAAIAAAABAAEAAAAJAAMAAAADAAEAAAAJAAQAAAACAAEAAAAIAAQAAAABAAEAAAAIAAMAAAABAAEAAAAIAAIAAAABAAEAAAAIAAEAAAABAAEAAAAHAAEAAAABAAEAAAAHAAIAAAABAAEAAAAHAAMAAAABAAEAAAAHAAQAAAABAAEAAAAGAAQAAAABAAEAAAAGAAMAAAABAAEAAAAGAAIAAAABAAEAAAAGAAEAAAABAAEAAAAFAAEAAAABAAEAAAAFAAIAAAABAAEAAAAFAAMAAAABAAEAAAAFAAQAAAABAAEAAAAEAAMAAAABAAEAAAAEAAIAAAABAAEAAAAEAAEAAAABAAEAAAAEAAQAAAABAAEAAAADAAQAAAABAAEAAAADAAMAAAABAAEAAAADAAIAAAABAAEAAAADAAEAAAABAAEAAAACAAEAAAABAAEAAAACAAIAAAABAAEAAAACAAMAAAABAAEAAAACAAQAAAABAAEAAAABAAQAAAABAAEAAAABAAMAAAABAAEAAAABAAIAAAABAAEAAAABAAEAAAABAAEAAAABAAcAAAACAAIAAAACAAYAAAACAAIAAAABAAYAAAADAAEAAAAIAAUAAAABAAIAAAALAAEAAAABAAIAAAAMAAEAAAACAAIAAAAfAAAAAAABAAIAAAAfABMAAAABAAAAAAAgAAAAAAABAAIAAAAgABMAAAABAAAAAAAhAAAAAAABAAIAAAAhABMAAAABAAAAAAAiAAAAAAABAAIAAAAiABMAAAABAAAAAAAjAAAAAAAEAAEAAAAjAAEAAAAAAAIAAAAjABMAAAABAAAAAAAkAAAAAAABAAEAAAAkAAEAAAABAAIAAAAkABMAAAABAAAAAAAlAAAAAAABAAEAAAAlAAEAAAABAAIAAAAlABMAAAABAAAAAAAmAAAAAAABAAEAAAAmAAEAAAAEAAEAAAAmAAIAAAAAAAEAAAAmAAMAAAAAAAEAAAAmAAQAAAAAAAIAAAAmABMAAAABAAAAAAAnAAAAAAABAAEAAAAnAAEAAAABAAEAAAAnAAIAAAABAAEAAAAnAAMAAAABAAEAAAAnAAQAAAAEAAEAAAAnAAUAAAAAAAEAAAAnAAYAAAAAAAEAAAAnAAcAAAAAAAIAAAAnABMAAAABAAAAAAAoAAAAAAABAAEAAAAoAAEAAAABAAEAAAAoAAIAAAABAAEAAAAoAAMAAAABAAEAAAAoAAQAAAABAAEAAAAoAAUAAAABAAEAAAAoAAYAAAABAAEAAAAoAAcAAAAEAAEAAAAoAAgAAAAAAAEAAAAoAAkAAAAAAAEAAAAoAAoAAAAAAAEAAAAoAAsAAAAAAAEAAAAoAAwAAAAAAAEAAAAoAA0AAAAAAAEAAAAoAA4AAAAAAAEAAAAoAA8AAAAAAAEAAAAoABAAAAAAAAEAAAAoABEAAAAAAAEAAAAoABIAAAAAAAEAAAAoABMAAAAEAAIAAAAaABMAAAABAAAAAAAbABMAAAABAAAAAAAcABMAAAABAAAAAAAdABMAAAABAAAAAAAeABMAAAABAAAAAAAaAAAAAAABAAIAAAAbAAAAAAABAAIAAAAcAAAAAAABAAIAAAAdAAAAAAABAAIAAAAeAAAAAAABAAIAAAAmAAcAAQACAAAAAAAlAAcAAQAEAAAAAAAkAAcAAQAEAAAAAAAjAAcAAQAEAAAAAAAJAAUAAAACAAIAAAAKAAUAAQABAAAAAAALAAUAAQAEAAAAAAAMAAUAAQAEAAAAAAANAAUAAQAEAAAAAAAOAAUAAQAEAAAAAAAPAAUAAQAAAAAAAAAiAAcAAQAEAAAAAAAhAAcAAQAEAAAAAAAgAAcAAQADAAAAAAALAAgAAQAFAAAAAAAMAAgAAQAEAAAAAAANAAgAAQAGAAAAAAA=")
+tile_map_data = PackedByteArray("AAACABMAAAABAAAAAAADABMAAAABAAAAAAD//xMAAAABAAAAAAAAABMAAAABAAAAAAABABMAAAABAAAAAAAEABMAAAABAAAAAAAFABMAAAABAAAAAAAGABMAAAABAAAAAAAHABMAAAABAAAAAAAIABMAAAABAAAAAAAJABMAAAABAAAAAAAKABMAAAABAAAAAAALABMAAAABAAAAAAAMABMAAAABAAAAAAANABMAAAABAAAAAAAOABMAAAABAAAAAAAPABMAAAABAAAAAAAQABMAAAABAAAAAAARABMAAAABAAAAAAASABMAAAABAAAAAAATABMAAAABAAAAAAAUABMAAAABAAAAAAAVABMAAAABAAAAAAAWABMAAAABAAAAAAAXABMAAAABAAAAAAAYABMAAAABAAAAAAAZABMAAAABAAAAAAAZAAAAAAABAAIAAAAYAAAAAAABAAIAAAAXAAAAAAABAAIAAAAWAAAAAAABAAIAAAAVAAAAAAABAAIAAAAUAAAAAAABAAIAAAATAAAAAAABAAIAAAASAAAAAAABAAIAAAARAAAAAAABAAIAAAAQAAAAAAABAAIAAAAPAAAAAAABAAIAAAAOAAAAAAABAAIAAAANAAAAAAABAAIAAAAMAAAAAAADAAEAAAALAAAAAAABAAEAAAAKAAAAAAABAAEAAAAJAAAAAAABAAEAAAAIAAAAAAABAAEAAAAHAAAAAAABAAEAAAAGAAAAAAABAAEAAAAFAAAAAAABAAEAAAAEAAAAAAABAAEAAAADAAAAAAABAAEAAAACAAAAAAABAAEAAAABAAAAAAABAAEAAAAAAAEAAAABAAEAAAAAAAIAAAABAAEAAAAAAAMAAAABAAEAAAAAAAQAAAABAAEAAAAAAAUAAAABAAEAAAAAAAYAAAABAAEAAAAAAAcAAAADAAEAAAAAAAgAAAACAAEAAAAAAAkAAAACAAEAAAAAAAoAAAACAAEAAAAAAAsAAAACAAEAAAAAAAwAAAACAAEAAAAAAA0AAAACAAEAAAAAAA4AAAACAAEAAAAAAAAAAAABAAEAAAAAAA8AAAACAAIAAAD//w8AAAABAAIAAAD+/xIAAAACAAEAAAD+/xEAAAACAAEAAAD+/xAAAAACAAEAAAABAAUAAAABAAEAAAACAAUAAAADAAEAAAADAAUAAAABAAIAAAAEAAUAAAABAAIAAAAFAAUAAAABAAIAAAAGAAUAAAABAAIAAAAHAAUAAAABAAIAAAAKAAMAAAACAAIAAAAKAAIAAAACAAEAAAAKAAEAAAADAAEAAAAJAAEAAAABAAEAAAAJAAIAAAABAAEAAAAJAAMAAAADAAEAAAAJAAQAAAACAAEAAAAIAAQAAAABAAEAAAAIAAMAAAABAAEAAAAIAAIAAAABAAEAAAAIAAEAAAABAAEAAAAHAAEAAAABAAEAAAAHAAIAAAABAAEAAAAHAAMAAAABAAEAAAAHAAQAAAABAAEAAAAGAAQAAAABAAEAAAAGAAMAAAABAAEAAAAGAAIAAAABAAEAAAAGAAEAAAABAAEAAAAFAAEAAAABAAEAAAAFAAIAAAABAAEAAAAFAAMAAAABAAEAAAAFAAQAAAABAAEAAAAEAAMAAAABAAEAAAAEAAIAAAABAAEAAAAEAAEAAAABAAEAAAAEAAQAAAABAAEAAAADAAQAAAABAAEAAAADAAMAAAABAAEAAAADAAIAAAABAAEAAAADAAEAAAABAAEAAAACAAEAAAABAAEAAAACAAIAAAABAAEAAAACAAMAAAABAAEAAAACAAQAAAABAAEAAAABAAQAAAABAAEAAAABAAMAAAABAAEAAAABAAIAAAABAAEAAAABAAEAAAABAAEAAAABAAcAAAACAAIAAAACAAYAAAACAAIAAAABAAYAAAADAAEAAAAIAAUAAAABAAIAAAALAAEAAAABAAIAAAAMAAEAAAACAAIAAAAfAAAAAAABAAIAAAAfABMAAAABAAAAAAAgAAAAAAABAAIAAAAgABMAAAABAAAAAAAhAAAAAAABAAIAAAAhABMAAAABAAAAAAAiAAAAAAABAAIAAAAiABMAAAABAAAAAAAjAAAAAAAEAAEAAAAjAAEAAAAAAAIAAAAjABMAAAABAAAAAAAkAAAAAAABAAEAAAAkAAEAAAABAAIAAAAkABMAAAABAAAAAAAlAAAAAAABAAEAAAAlAAEAAAABAAIAAAAlABMAAAABAAAAAAAmAAAAAAABAAEAAAAmAAEAAAAEAAEAAAAmAAIAAAAAAAEAAAAmAAMAAAAAAAEAAAAmAAQAAAAAAAIAAAAmABMAAAABAAAAAAAnAAAAAAABAAEAAAAnAAEAAAABAAEAAAAnAAIAAAABAAEAAAAnAAMAAAABAAEAAAAnAAQAAAAEAAEAAAAnAAUAAAAAAAEAAAAnAAYAAAAAAAEAAAAnAAcAAAAAAAIAAAAnABMAAAABAAAAAAAoAAAAAAABAAEAAAAoAAEAAAABAAEAAAAoAAIAAAABAAEAAAAoAAMAAAABAAEAAAAoAAQAAAABAAEAAAAoAAUAAAABAAEAAAAoAAYAAAABAAEAAAAoAAcAAAAEAAEAAAAoAAgAAAAAAAEAAAAoAAkAAAAAAAEAAAAoAAoAAAAAAAEAAAAoAAsAAAAAAAEAAAAoAAwAAAAAAAEAAAAoAA0AAAAAAAEAAAAoAA4AAAAAAAEAAAAoAA8AAAAAAAEAAAAoABAAAAAAAAEAAAAoABEAAAAAAAEAAAAoABIAAAAAAAEAAAAoABMAAAAEAAIAAAAaABMAAAABAAAAAAAbABMAAAABAAAAAAAcABMAAAABAAAAAAAdABMAAAABAAAAAAAeABMAAAABAAAAAAAaAAAAAAABAAIAAAAbAAAAAAABAAIAAAAcAAAAAAABAAIAAAAdAAAAAAABAAIAAAAeAAAAAAABAAIAAAAmAAcAAQACAAAAAAAlAAcAAQAEAAAAAAAkAAcAAQAEAAAAAAAjAAcAAQAEAAAAAAAJAAUAAAACAAIAAAAKAAUAAQABAAAAAAALAAUAAQAEAAAAAAAMAAUAAQAEAAAAAAANAAUAAQAEAAAAAAAOAAUAAQAEAAAAAAAPAAUAAQAAAAAAAAAiAAcAAQAEAAAAAAAhAAcAAQAEAAAAAAAgAAcAAQADAAAAAAALAAkAAQAFAAAAAAAMAAkAAQAEAAAAAAANAAkAAQAGAAAAAAA=")
 tile_set = SubResource("TileSet_xxtnn")
 
 [node name="CameraLimits_NotImplemented" type="Area2D" parent="." unique_id=943959522]
@@ -395,9 +316,10 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_txcic")
 script = ExtResource("5_qcnyv")
 interactedSprite = ExtResource("9_v4035")
+litSprite = ExtResource("12_fbug8")
 
 [node name="Interactable9" type="Area2D" parent="InteractableManager" unique_id=2007326243]
-position = Vector2(279, 556)
+position = Vector2(519, 556)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractableManager/Interactable9" unique_id=1720048474]
 shape = SubResource("CircleShape2D_5m132")
@@ -408,6 +330,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_txcic")
 script = ExtResource("5_qcnyv")
 interactedSprite = ExtResource("9_v4035")
+litSprite = ExtResource("12_fbug8")
 
 [node name="Interactable10" type="Area2D" parent="InteractableManager" unique_id=368023334]
 position = Vector2(1067, 556)
@@ -421,6 +344,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_txcic")
 script = ExtResource("5_qcnyv")
 interactedSprite = ExtResource("9_v4035")
+litSprite = ExtResource("12_fbug8")
 
 [node name="Interactable2" type="Area2D" parent="InteractableManager" unique_id=678921616]
 position = Vector2(1165, 110)
@@ -435,6 +359,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_txcic")
 script = ExtResource("5_qcnyv")
 interactedSprite = ExtResource("9_v4035")
+litSprite = ExtResource("12_fbug8")
 
 [node name="Interactable4" type="Area2D" parent="InteractableManager" unique_id=1503011322]
 position = Vector2(632, 81)
@@ -449,6 +374,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_txcic")
 script = ExtResource("5_qcnyv")
 interactedSprite = ExtResource("9_v4035")
+litSprite = ExtResource("12_fbug8")
 
 [node name="Interactable5" type="Area2D" parent="InteractableManager" unique_id=765386978]
 position = Vector2(900, 81)
@@ -463,6 +389,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_txcic")
 script = ExtResource("5_qcnyv")
 interactedSprite = ExtResource("9_v4035")
+litSprite = ExtResource("12_fbug8")
 
 [node name="Interactable3" type="Area2D" parent="InteractableManager" unique_id=1709029927]
 position = Vector2(386, 133)
@@ -476,6 +403,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("11_qoqfw")
 script = ExtResource("5_qcnyv")
 interactedSprite = ExtResource("12_0fs5j")
+litSprite = ExtResource("15_siti5")
 
 [node name="Interactable6" type="Area2D" parent="InteractableManager" unique_id=1258435834]
 position = Vector2(1047, 195)
@@ -489,6 +417,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("11_qoqfw")
 script = ExtResource("5_qcnyv")
 interactedSprite = ExtResource("12_0fs5j")
+litSprite = ExtResource("15_siti5")
 
 [node name="Interactable7" type="Area2D" parent="InteractableManager" unique_id=217910800]
 position = Vector2(934, 413)
@@ -502,6 +431,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("12_crvc6")
 script = ExtResource("5_qcnyv")
 interactedSprite = ExtResource("13_vi78m")
+litSprite = ExtResource("18_wxju3")
 
 [node name="Interactable8" type="Area2D" parent="InteractableManager" unique_id=1561190907]
 position = Vector2(395, 413)
@@ -515,6 +445,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("12_crvc6")
 script = ExtResource("5_qcnyv")
 interactedSprite = ExtResource("13_vi78m")
+litSprite = ExtResource("18_wxju3")
 
 [connection signal="body_entered" from="InteractableManager/Interactable" to="InteractableManager/Interactable/Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="InteractableManager/Interactable" to="InteractableManager/Interactable/Sprite2D" method="_on_area_2d_body_exited"]
