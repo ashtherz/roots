@@ -2,21 +2,30 @@ extends Node2D
 const Piece = preload("res://scripts/packing/piece.gd")
 const DIRS = [Vector2i.RIGHT, Vector2i.LEFT, Vector2i.UP, Vector2i.DOWN]
 
+signal finished
+
 @export var cols := 6
 @export var rows := 5
-@export var max_cell_size := 110.0   # biggest a square is allowed to get
-@export var min_cell_size := 32.0    # never shrink below this
+@export var max_cell_size := 110.0
+@export var min_cell_size := 32.0
 @export_range(0.3, 0.8) var board_area := 0.5
 @export var margin := 40.0
-@export var top_space := 110.0       # room reserved for the status text
-@export var bottom_space := 60.0     # room reserved for the hint text
+@export var top_space := 110.0
+@export var bottom_space := 60.0
 @export var block_texture: Texture2D
 @export var background_texture: Texture2D
 @export var mushroom_textures: Texture2D
 @export_range(0, 10) var mushroom_count := 3
-#@export var status_font_size := 32
+@export_file("*.tscn") var next_scene := ""
 
-var cell_size := 56.0   # calculated automatically in _fit_cell_size()
+@export_group("Sounds")
+@export var place_sound: AudioStream
+@export var pickup_sound: AudioStream
+@export var win_sound: AudioStream
+@export_range(0.0, 0.3) var pitch_variation := 0.1
+@export_group("")
+
+var cell_size := 56.0
 
 var board_origin := Vector2.ZERO
 var tray_rect := Rect2()
@@ -28,6 +37,10 @@ var dragging: Piece = null
 var drag_offset := Vector2.ZERO
 var status: Label
 var hint: Label
+var continue_btn: Button
+var place_player: AudioStreamPlayer
+var pickup_player: AudioStreamPlayer
+var win_player: AudioStreamPlayer
 
 
 func _ready() -> void:
@@ -48,7 +61,46 @@ func _ready() -> void:
 	hint.size = Vector2(view.x, bottom_space - 12)
 	add_child(hint)
 
+	continue_btn = Button.new()
+	continue_btn.text = "Continue  →"
+	continue_btn.add_theme_font_size_override("font_size", 28)
+	continue_btn.custom_minimum_size = Vector2(240, 52)
+	continue_btn.size = continue_btn.custom_minimum_size
+	continue_btn.position = Vector2((view.x - 240) / 2.0, view.y - 58)
+	continue_btn.visible = false
+	continue_btn.pressed.connect(_finish)
+	add_child(continue_btn)
+
+	place_player = _make_player(place_sound)
+	pickup_player = _make_player(pickup_sound)
+	win_player = _make_player(win_sound)
+
 	new_puzzle()
+
+
+func _make_player(stream: AudioStream) -> AudioStreamPlayer:
+	var a := AudioStreamPlayer.new()
+	a.stream = stream
+	a.max_polyphony = 4
+	add_child(a)
+	return a
+
+
+func _play(player: AudioStreamPlayer, vary := true) -> void:
+	if player.stream == null:
+		return
+	player.pitch_scale = randf_range(1.0 - pitch_variation, 1.0 + pitch_variation) if vary else 1.0
+	player.play()
+
+
+func _finish() -> void:
+	finished.emit()
+	if next_scene != "":
+		get_tree().change_scene_to_file(next_scene)
+	elif SceneManager.previous_scene != null:
+		SceneManager.call_deferred("return_to_previous_scene")
+	else:
+		get_tree().quit()
 
 func new_puzzle() -> void:
 	for p in pieces:
@@ -61,7 +113,6 @@ func new_puzzle() -> void:
 	_place_mushrooms()
 	var groups := _partition_board()
 
-	# Decide rotations up front so we know each piece's size in the tray
 	var rots: Array[int] = []
 	var sizes: Array[Vector2i] = []
 	for g in groups:
@@ -105,8 +156,6 @@ func _tray_rect() -> Rect2:
 	return Rect2(split, top_space, view.x - split - margin, view.y - top_space - bottom_space)
 
 
-# Pick the biggest cell size where the board fits its half of the screen
-# AND every piece fits in the tray.
 func _fit_cell_size(sizes: Array[Vector2i]) -> void:
 	var view := get_viewport_rect().size
 	var split := view.x * board_area
@@ -270,6 +319,9 @@ func _unhandled_input(event: InputEvent) -> void:
 				_modify(mouse, func(p, pv): p.flip_h(pv))
 			KEY_N:
 				new_puzzle()
+			KEY_ENTER, KEY_KP_ENTER:
+				if _is_packed():
+					_finish()
 
 
 func _piece_at(pos: Vector2) -> Piece:
@@ -290,6 +342,7 @@ func _pick_up(mouse: Vector2) -> void:
 	pieces.append(p)
 	move_child(p, -1)
 	p.modulate.a = 0.85
+	_play(pickup_player)
 	queue_redraw()
 
 
@@ -300,6 +353,9 @@ func _drop() -> void:
 	var at := _snap_cell(p)
 	if _fits(p, at):
 		_place(p, at)
+		_play(place_player)
+		if _is_packed():
+			_play(win_player, false)
 	_update_status()
 	queue_redraw()
 
@@ -378,11 +434,12 @@ func _is_packed() -> bool:
 
 func _update_status() -> void:
 	if _is_packed():
-		status.text = "Good job! Everything now fits! Keep rearranging, or press N for a new puzzle."
+		status.text = "Good job! Everything fits! Press Continue, or N for a new puzzle."
 	else:
 		status.text = "Filled %d / %d    drag = move · R = rotate · F = flip" \
 			% [grid.size(), _free_cell_count()]
 	hint.visible = not _is_packed()
+	continue_btn.visible = _is_packed()
 
 func _draw() -> void:
 	if background_texture:

@@ -4,9 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://db0vnmfq5gasy" path="res://assets/sprites/packing/crate.png" id="2_0e48y"]
 [ext_resource type="Texture2D" uid="uid://5ap0b3y6bdd6" path="res://assets/sprites/packing/background.png" id="3_epypp"]
 [ext_resource type="Texture2D" uid="uid://cqwqd03mg7051" path="res://assets/sprites/platformer/shroom_on.png" id="4_ju4qu"]
+[ext_resource type="AudioStream" uid="uid://cal0ejebcgbp2" path="res://assets/audio/dirt.mp3" id="5_co7df"]
 
 [node name="Packing" type="Node2D" unique_id=377865224]
 script = ExtResource("1_wtcfe")
 block_texture = ExtResource("2_0e48y")
 background_texture = ExtResource("3_epypp")
 mushroom_textures = ExtResource("4_ju4qu")
+place_sound = ExtResource("5_co7df")
+pickup_sound = ExtResource("5_co7df")
+win_sound = ExtResource("5_co7df")
