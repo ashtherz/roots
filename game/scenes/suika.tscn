@@ -7,10 +7,23 @@
 [ext_resource type="Texture2D" uid="uid://bpv31xyanpevw" path="res://assets/sprites/cgs/bathroom.png" id="5_k0b4q"]
 [ext_resource type="Theme" uid="uid://2ib07f6qsldu" path="res://assets/sprites/ui/ui_theme.tres" id="6_cgevu"]
 
+[sub_resource type="Gradient" id="Gradient_cgevu"]
+colors = PackedColorArray(0.7806942, 4.548356e-06, 4.813075e-07, 1, 0.29789498, 0.23023444, 0.29385015, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ffnaq"]
+gradient = SubResource("Gradient_cgevu")
+fill_to = Vector2(0.99441344, 0.005586592)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3lic7"]
 size = Vector2(9520, 341)
 
 [node name="Suika" type="Node2D" unique_id=1845090816]
+
+[node name="Background" type="Sprite2D" parent="." unique_id=878882134]
+self_modulate = Color(0.45767224, 0.45767224, 0.45767224, 1)
+position = Vector2(958.6489, 658.5)
+scale = Vector2(0.830806, 0.825)
+texture = ExtResource("5_k0b4q")
 
 [node name="points_display" type="Label" parent="." unique_id=173784707]
 offset_left = 14.0
@@ -33,14 +46,24 @@ position = Vector2(251.1843, 40.896484)
 scale = Vector2(3.3107474, 3.680093)
 polygon = PackedVector2Array(-119.312, -1.3130188, -119.81134, 25.782188, -118.81266, 59.045418, -117.064964, 102.00123, -111.072876, 118.74299, -85.85616, 135.04416, -47.906265, 135.92532, 80.673996, 135.92532, 110.88411, 135.92532, 136.10081, 135.48474, 149.33336, 132.84131, 174.05074, 117.20098, 174.55006, 53.53826, 174.79973, 24.019897, 174.05074, -3.736168, 183.03886, 5.515854, 187.03358, 71.161156, 172.55269, 132.84131, 128.11137, 144.0759, 92.6566, 149.89175, -105.829796, 144.95706, -123.80607, 105.52581, -123.80607, 54.639687, -123.05705, 7.278145)
 
+[node name="Polygon2D" type="Polygon2D" parent="Suikabowl/Area2D" unique_id=687868068]
+position = Vector2(-445.53506, -259.02084)
+scale = Vector2(0.8228473, 0.8106739)
+color = Color(1.3655106, 1.3655106, 1.3655106, 1)
+texture = SubResource("GradientTexture2D_ffnaq")
+texture_offset = Vector2(100, 100)
+polygon = PackedVector2Array(360, 371, 367, 688, 373, 867, 408, 927, 469, 976, 521, 995, 1414, 992, 1501, 953, 1558, 877, 1557, 529, 1552, 350, 1519, 344, 1485, 360, 1396, 344, 1310, 353, 1217, 364, 1171, 363, 1091, 361, 983, 347, 872, 352, 768, 358, 697, 359, 584, 366, 462, 360, 393, 355)
+
 [node name="Path26" type="Sprite2D" parent="Suikabowl/Area2D" unique_id=526612553]
+modulate = Color(0.9699662, 0.9699662, 0.9699662, 1)
 position = Vector2(337.25104, 210.35931)
 scale = Vector2(0.62912273, 0.5734342)
 texture = ExtResource("2_k0b4q")
 
-[node name="GameController" type="Node2D" parent="." unique_id=211265387 node_paths=PackedStringArray("points_display")]
+[node name="GameController" type="Node2D" parent="." unique_id=211265387 node_paths=PackedStringArray("endscreen", "points_display")]
 position = Vector2(987, 184)
 script = ExtResource("2_5hanc")
+endscreen = NodePath("../Endscreen")
 left_lim = 200
 right_lim = 1700
 points_display = NodePath("../points_display")
@@ -59,7 +82,7 @@ position = Vector2(958.87506, 517.875)
 scale = Vector2(0.8159959, 0.7623476)
 texture = ExtResource("5_k0b4q")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Endscreen" unique_id=246066561]
+[node name="Score" type="RichTextLabel" parent="Endscreen" unique_id=246066561]
 offset_left = 378.83148
 offset_top = -485.17896
 offset_right = 1223.1985

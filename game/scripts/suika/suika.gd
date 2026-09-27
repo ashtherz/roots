@@ -3,6 +3,7 @@ extends Node2D
 var suika_ball = preload("res://scenes/suika_ball.tscn")
 @onready var curr :Node = null;
 @onready var death = $Death
+@export var endscreen : Node
 @export var left_lim = -10;
 @export var right_lim = 10;
 @export var points_display : Label
@@ -18,8 +19,15 @@ func _ready() -> void:
 
 
 func die():
-	print("dead")
-	pass
+	var msg = "Stinky..."
+	if total_points > 500:
+		msg = "Excellent work!"
+	elif total_points > 250:
+		msg = "So many bubbles!"
+	elif total_points > 100:
+		msg = "Nice!"
+	endscreen.get_node("Score").text = "Score: " + str(total_points) + "\n" + msg
+	endscreen.visible = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
