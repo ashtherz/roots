@@ -1,9 +1,5 @@
 extends Node
 
-var master : int
-var music : int
-var sfx : int
-
 @onready var music_player: AudioStreamPlayer = $MusicPlayer
 @onready var sfx_player1: AudioStreamPlayer = $SFXPlayer1
 @onready var sfx_player2: AudioStreamPlayer = $SFXPlayer2
