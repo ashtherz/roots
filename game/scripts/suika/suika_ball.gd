@@ -2,6 +2,11 @@ class_name Suika_ball
 extends RigidBody2D
 
 @export var level: int
+@export var textures : Array[Texture2D] = []
+@export var sizes : Array[float] = []
+@export var total_points : int = 0
+
+signal add_points(points: int)
 
 func _ready() -> void:
 	contact_monitor = true
@@ -14,12 +19,15 @@ func _on_body_entered(body : Node2D) -> void:
 		return
 	if body is Suika_ball:
 		# we absorb the other guy and double in size
-		if body.level == level:
+		if body.level == level and level < 8:
 			body.level = -1;
 			body.queue_free()
 			level += 1;
-			$CollisionShape2D.shape.radius *= 1.5;
-			$CollisionShape2D/Polygon2D.scale *= 1.5;
-			$CollisionShape2D/Polygon2D/Label.text = str(level)
+			$CollisionShape2D.shape.radius *= sizes[level-1];
+			$CollisionShape2D/Sprite2D.scale *= sizes[level-1];
+			$CollisionShape2D/Sprite2D/Label.text = str(level)
+			$CollisionShape2D/Sprite2D.region_rect = textures[level-1].region
+			add_points.emit(level);
 			for b in get_colliding_bodies():
 				_on_body_entered(b)
+				

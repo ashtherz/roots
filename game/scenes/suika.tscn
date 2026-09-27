@@ -1,35 +1,52 @@
 [gd_scene format=3 uid="uid://8xn22ho5n0un"]
 
-[ext_resource type="Texture2D" uid="uid://5x31egvcvfi8" path="res://icon.svg" id="1_5hanc"]
+[ext_resource type="FontFile" uid="uid://cb7gnu1a4gx6e" path="res://assets/Knewave-Regular.ttf" id="1_0g0qn"]
+[ext_resource type="Texture2D" uid="uid://ui571vltq5un" path="res://assets/Bathtub.png" id="2_0g0qn"]
 [ext_resource type="Script" uid="uid://clbs7mrnk45wt" path="res://scripts/suika/suika.gd" id="2_5hanc"]
+[ext_resource type="Script" uid="uid://buxng3piew1g8" path="res://scripts/suika/suika_death.gd" id="3_flqyl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3lic7"]
+size = Vector2(9520, 341)
 
 [node name="Suika" type="Node2D" unique_id=1845090816]
 
+[node name="points_display" type="Label" parent="." unique_id=173784707]
+offset_left = 14.0
+offset_top = 13.0
+offset_right = 466.0
+offset_bottom = 217.0
+theme_override_fonts/font = ExtResource("1_0g0qn")
+theme_override_font_sizes/font_size = 60
+text = "Effervescence: 0"
+
 [node name="Suikabowl" type="Node2D" parent="." unique_id=1256978956]
+scale = Vector2(1.0045553, 1.0016081)
 
 [node name="Area2D" type="StaticBody2D" parent="Suikabowl" unique_id=511649070]
 position = Vector2(539, 319)
+scale = Vector2(1.2097814, 1.2315612)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Suikabowl/Area2D" unique_id=1393097940]
-polygon = PackedVector2Array(-89, -56, -89, 124, 140, 125, 138, -59, 170, -58, 173, 141, -109, 147, -115, -53)
+position = Vector2(251.18427, 40.896484)
+scale = Vector2(3.3107471, 3.6800928)
+polygon = PackedVector2Array(-119.312, -1.3130188, -119.81134, 25.782188, -118.81266, 59.045418, -117.064964, 102.00123, -111.072876, 118.74299, -85.85616, 135.04416, -47.906265, 135.92532, 80.673996, 135.92532, 110.88411, 135.92532, 136.10081, 135.48474, 149.33336, 132.84131, 174.05074, 117.20098, 174.55006, 53.53826, 174.79973, 24.019897, 174.05074, -3.736168, 183.03886, 5.515854, 187.03358, 71.161156, 172.55269, 132.84131, 128.11137, 144.0759, 92.6566, 149.89175, -105.829796, 144.95706, -123.80607, 105.52581, -123.80607, 54.639687, -123.05705, 7.278145)
 
-[node name="Sprite2D" type="Sprite2D" parent="Suikabowl" unique_id=538327917]
-position = Vector2(566, 454)
-scale = Vector2(3.1171875, 0.14453146)
-texture = ExtResource("1_5hanc")
+[node name="Path26" type="Sprite2D" parent="Suikabowl/Area2D" unique_id=526612553]
+position = Vector2(337.25104, 210.35931)
+scale = Vector2(0.62912273, 0.5734342)
+texture = ExtResource("2_0g0qn")
 
-[node name="Sprite2D2" type="Sprite2D" parent="Suikabowl" unique_id=1426727461]
-position = Vector2(436, 373)
-rotation = -1.5707964
-scale = Vector2(3.1171875, 0.14453146)
-texture = ExtResource("1_5hanc")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Suikabowl" unique_id=833314996]
-position = Vector2(692, 373)
-rotation = -1.5707964
-scale = Vector2(3.1171875, 0.14453146)
-texture = ExtResource("1_5hanc")
-
-[node name="GameController" type="Node2D" parent="." unique_id=211265387]
-position = Vector2(559, 129)
+[node name="GameController" type="Node2D" parent="." unique_id=211265387 node_paths=PackedStringArray("points_display")]
+position = Vector2(987, 184)
 script = ExtResource("2_5hanc")
+left_lim = 200
+right_lim = 1700
+points_display = NodePath("../points_display")
+
+[node name="Death" type="Area2D" parent="GameController" unique_id=498911036]
+position = Vector2(-987, -184)
+script = ExtResource("3_flqyl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameController/Death" unique_id=1210958398]
+position = Vector2(947, 1240)
+shape = SubResource("RectangleShape2D_3lic7")

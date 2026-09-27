@@ -2,20 +2,39 @@ extends Node2D
 
 var suika_ball = preload("res://scenes/suika_ball.tscn")
 @onready var curr :Node = null;
+@onready var death = $Death
+@export var left_lim = -10;
+@export var right_lim = 10;
+@export var points_display : Label
+
+var spawn_lim = 0;
+var total_points = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	curr = spawn_ball();
+	spawn_lim = 0;
+	death.suika_die.connect(die)
+
+
+func die():
+	print("dead")
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if curr == null: return
 	
 	var mouse_pos = get_global_mouse_position()
+	spawn_lim -= delta;
+	if spawn_lim <= 0:
+		curr.visible = true;
 	
-	curr.global_position.x = mouse_pos.x;
+	curr.global_position.x = min(max(mouse_pos.x, left_lim), right_lim);
 	
 func _input(event):
+	if spawn_lim > 0:
+		return
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 		curr.gravity_scale = 1.0;
 		curr.get_node("CollisionShape2D").disabled = false
@@ -25,6 +44,13 @@ func spawn_ball() -> Node2D:
 	var new_ball = suika_ball.instantiate();
 	print("spawn!");
 	add_child(new_ball);
+	new_ball.add_points.connect(gain_points)
 	new_ball.gravity_scale = 0.0;
 	new_ball.get_node("CollisionShape2D").disabled = true
+	spawn_lim = 1;
+	new_ball.visible = false;
 	return new_ball;
+
+func gain_points(points):
+	total_points += points
+	points_display.text = "Effervescence: " + str(total_points)
