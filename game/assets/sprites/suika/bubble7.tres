@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://dcqoxmjb1qe1p"]
+
+[ext_resource type="Texture2D" uid="uid://dxpyqcoy1vud0" path="res://assets/sprites/suika/path1.png" id="1_ini52"]
+
+[resource]
+atlas = ExtResource("1_ini52")
+region = Rect2(229, 226, 207, 207)

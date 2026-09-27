@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ui571vltq5un"
-path="res://.godot/imported/Bathtub.png-a29c64fd030627cf1cf4bbe7b3c40b5c.ctex"
+uid="uid://d1l11gsq0bb7t"
+path="res://.godot/imported/dialogue.png-df573403cb31d5aeafe9ea3edf3afc3e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Bathtub.png"
-dest_files=["res://.godot/imported/Bathtub.png-a29c64fd030627cf1cf4bbe7b3c40b5c.ctex"]
+source_file="res://assets/sprites/ui/dialogue.png"
+dest_files=["res://.godot/imported/dialogue.png-df573403cb31d5aeafe9ea3edf3afc3e.ctex"]
 
 [params]
 

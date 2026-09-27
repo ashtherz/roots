@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvtn76ghhx0xj"
-path="res://.godot/imported/path26.png-429319118c6053e8c906870f08a99f96.ctex"
+uid="uid://dr1c7ntp5hnve"
+path="res://.godot/imported/Bathtub.png-43bf8661268473cbac3c28b2b340e787.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/path26.png"
-dest_files=["res://.godot/imported/path26.png-429319118c6053e8c906870f08a99f96.ctex"]
+source_file="res://assets/sprites/suika/Bathtub.png"
+dest_files=["res://.godot/imported/Bathtub.png-43bf8661268473cbac3c28b2b340e787.ctex"]
 
 [params]
 
