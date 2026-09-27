@@ -4,14 +4,15 @@
 [ext_resource type="AudioStream" uid="uid://c7mtmpl42vbrw" path="res://assets/audio/Sheep.ogg" id="2_7f5g4"]
 
 [node name="AudioManager" type="Node2D" unique_id=1048940902]
+process_mode = 3
 script = ExtResource("1_lxamp")
 
-[node name="MusicPlayer" type="AudioStreamPlayer2D" parent="." unique_id=104848808]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1003160440]
 stream = ExtResource("2_7f5g4")
 autoplay = true
 
-[node name="SFXPlayer1" type="AudioStreamPlayer2D" parent="." unique_id=1787434281]
+[node name="SFXPlayer1" type="AudioStreamPlayer" parent="." unique_id=1016098736]
 
-[node name="SFXPlayer2" type="AudioStreamPlayer2D" parent="." unique_id=904430385]
+[node name="SFXPlayer2" type="AudioStreamPlayer" parent="." unique_id=789117273]
 
-[node name="SFXPlayer3" type="AudioStreamPlayer2D" parent="." unique_id=1018785481]
+[node name="SFXPlayer3" type="AudioStreamPlayer" parent="." unique_id=189554925]
