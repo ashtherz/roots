@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://bt12l0njnbrrs"]
 
+[ext_resource type="Script" uid="uid://b6b8bnekpthyy" path="res://scripts/overworld/overworld.gd" id="1_666lb"]
 [ext_resource type="PackedScene" uid="uid://cna6xu1sauvsb" path="res://scenes/common/player.tscn" id="1_c3gql"]
 [ext_resource type="Texture2D" uid="uid://dv7e5eiqndy8s" path="res://assets/sprites/tilesets/platformer_tileset.png" id="2_puia7"]
 [ext_resource type="Texture2D" uid="uid://cmouwejqawh1r" path="res://assets/sprites/tilesets/platform.png" id="3_gacct"]
@@ -7,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bfndo87ptunb6" path="res://scripts/platformer/camera_trigger.gd" id="5_w51ix"]
 [ext_resource type="Script" uid="uid://dd68kak3i7n04" path="res://scenes/scene_trigger.gd" id="6_bos8a"]
 [ext_resource type="PackedScene" uid="uid://c3wauulm1dttu" path="res://scenes/platformer.tscn" id="7_i5y0i"]
+[ext_resource type="PackedScene" uid="uid://ci1wwj1jxt6d0" path="res://scenes/common/dialogue_layer.tscn" id="9_0n4wa"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w51ix"]
 texture = ExtResource("2_puia7")
@@ -76,6 +78,7 @@ size = Vector2(4918, 1707)
 size = Vector2(20, 418)
 
 [node name="Overworld" type="Node2D" unique_id=1552427704]
+script = ExtResource("1_666lb")
 
 [node name="Player" parent="." unique_id=203250515 instance=ExtResource("1_c3gql")]
 unique_name_in_owner = true
@@ -125,6 +128,9 @@ nextScene = ExtResource("7_i5y0i")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformerTrigger" unique_id=733701610]
 position = Vector2(0, -199)
 shape = SubResource("RectangleShape2D_2sk2l")
+
+[node name="DialogueLayer" parent="." unique_id=1581602448 instance=ExtResource("9_0n4wa")]
+unique_name_in_owner = true
 
 [connection signal="body_entered" from="IntroCameraLimits" to="IntroCameraLimits" method="_on_body_entered"]
 [connection signal="body_entered" from="MainCameraLimits" to="MainCameraLimits" method="_on_body_entered"]

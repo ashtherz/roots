@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://ci1wwj1jxt6d0"]
+
+[ext_resource type="Script" uid="uid://b3nkt1j6gdmmt" path="res://scripts/dialogue.gd" id="1_iuuju"]
+[ext_resource type="Texture2D" uid="uid://ckxqlerfstcod" path="res://assets/sprites/faces/placeholder.png" id="2_3bvk5"]
+
+[node name="DialogueLayer" type="CanvasLayer" unique_id=1581602448]
+layer = 2
+
+[node name="Dialogue" type="Panel" parent="." unique_id=2126517010]
+process_mode = 3
+visible = false
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -340.0
+offset_right = -60.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_iuuju")
+
+[node name="Label" type="Label" parent="Dialogue" unique_id=1170756782]
+custom_maximum_size = Vector2(1480, -1)
+layout_mode = 0
+offset_left = 40.0
+offset_top = 40.0
+offset_right = 1520.0
+offset_bottom = 260.0
+theme_override_font_sizes/font_size = 36
+autowrap_mode = 2
+
+[node name="Portrait" type="TextureRect" parent="Dialogue" unique_id=30551024]
+layout_mode = 0
+offset_left = 1560.0
+offset_top = 40.0
+offset_right = 1780.0
+offset_bottom = 260.0
+texture = ExtResource("2_3bvk5")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Dialogue" unique_id=1233872054]
