@@ -9,22 +9,27 @@ const DIRS = [Vector2i.RIGHT, Vector2i.LEFT, Vector2i.UP, Vector2i.DOWN]
 @export var margin := 40.0
 @export var block_texture: Texture2D
 @export var background_texture: Texture2D
+@export var mushroom_textures: Texture2D
+@export_range(0, 10) var mushroom_count := 3
+#@export var status_font_size := 32
+
 
 var board_origin := Vector2.ZERO
 var tray_rect := Rect2()
 
-var grid := {}         
-var pieces: Array = []    
+var grid := {}
+var blocked := {}
+var pieces: Array = []
 var dragging: Piece = null
 var drag_offset := Vector2.ZERO
 var status: Label
 
 
 func _ready() -> void:
-	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST 
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	status = Label.new()
 	status.position = Vector2(40, 24)
-	status.add_theme_font_size_override("font_size", 20)
+	status.add_theme_font_size_override("font_size", 35)
 	add_child(status)
 	_layout_board()
 	new_puzzle()
@@ -34,8 +39,10 @@ func new_puzzle() -> void:
 		p.queue_free()
 	pieces.clear()
 	grid.clear()
+	blocked.clear()
 	dragging = null
 
+	_place_mushrooms()
 	var groups := _partition_board()
 	for i in groups.size():
 		var p := Piece.new()
@@ -79,7 +86,28 @@ func _layout_tray() -> void:
 	var top := tray_rect.position.y + maxf(0.0, (tray_rect.size.y - (y + row_h)) / 2.0)
 	for i in pieces.size():
 		pieces[i].global_position = Vector2(tray_rect.position.x, top) + spots[i]
-		
+
+
+func _place_mushrooms() -> void:
+	var cells: Array[Vector2i] = []
+	for y in rows:
+		for x in cols:
+			cells.append(Vector2i(x, y))
+	cells.shuffle()
+
+	for c in cells:
+		if blocked.size() >= mushroom_count:
+			break
+		var touching := false
+		for d in DIRS:
+			if blocked.has(c + d):
+				touching = true
+				break
+		if touching:
+			continue
+		blocked[c] = mushroom_textures
+
+
 func _partition_board() -> Array:
 	var cell_owner := {}
 	var groups: Array = []
@@ -90,7 +118,7 @@ func _partition_board() -> Array:
 	order.shuffle()
 
 	for start in order:
-		if cell_owner.has(start):
+		if cell_owner.has(start) or blocked.has(start):
 			continue
 		var id := groups.size()
 		var group: Array[Vector2i] = [start]
@@ -133,7 +161,7 @@ func _free_neighbours(group: Array, cell_owner: Dictionary) -> Array[Vector2i]:
 	for c in group:
 		for d in DIRS:
 			var n: Vector2i = c + d
-			if _in_bounds(n) and not cell_owner.has(n) and not out.has(n):
+			if _in_bounds(n) and not cell_owner.has(n) and not blocked.has(n) and not out.has(n):
 				out.append(n)
 	return out
 
@@ -194,7 +222,7 @@ func _drop() -> void:
 		_place(p, at)
 	_update_status()
 	queue_redraw()
-	
+
 func _modify(mouse: Vector2, action: Callable) -> void:
 	var p: Piece = dragging if dragging else _piece_at(mouse)
 	if p == null:
@@ -226,7 +254,7 @@ func _modify(mouse: Vector2, action: Callable) -> void:
 func _pivot(p: Piece, mouse: Vector2) -> Vector2:
 	var local := ((mouse - p.global_position) / cell_size).floor() + Vector2(0.5, 0.5)
 	return p.global_position + local * cell_size
-	
+
 func _in_bounds(c: Vector2i) -> bool:
 	return c.x >= 0 and c.y >= 0 and c.x < cols and c.y < rows
 
@@ -239,7 +267,7 @@ func _snap_cell(p: Piece) -> Vector2i:
 func _fits(p: Piece, at: Vector2i) -> bool:
 	for c in p.cells:
 		var g: Vector2i = at + c
-		if not _in_bounds(g) or grid.has(g):
+		if not _in_bounds(g) or grid.has(g) or blocked.has(g):
 			return false
 	return true
 
@@ -260,16 +288,20 @@ func _lift(p: Piece) -> void:
 	p.on_board = false
 
 
+func _free_cell_count() -> int:
+	return cols * rows - blocked.size()
+
+
 func _is_packed() -> bool:
-	return grid.size() == cols * rows
+	return grid.size() == _free_cell_count()
 
 
 func _update_status() -> void:
 	if _is_packed():
-		status.text = "Packed! Every cell is filled. Keep rearranging, or press N for a new puzzle."
+		status.text = "Good job! Everything now fits!. Keep rearranging, or press N for a new puzzle."
 	else:
-		status.text = "Filled %d / %d    drag = move · R / right-click / scroll = rotate · F = flip · N = new" \
-			% [grid.size(), cols * rows]
+		status.text = "Filled %d / %d    drag = move · R = rotate · F = flip" \
+			% [grid.size(), _free_cell_count()]
 
 func _draw() -> void:
 	if background_texture:
@@ -285,6 +317,14 @@ func _draw() -> void:
 	for y in rows + 1:
 		var py := board_origin.y + y * cell_size
 		draw_line(Vector2(board.position.x, py), Vector2(board.end.x, py), Color(1, 1, 1, 0.08))
+
+	for c in blocked:
+		var r := Rect2(board_origin + Vector2(c) * cell_size, Vector2.ONE * cell_size)
+		var tex: Texture2D = blocked[c]
+		if tex:
+			draw_texture_rect(tex, r.grow(-3), false)
+		else:
+			draw_circle(r.get_center(), cell_size * 0.3, Color(0.6, 0.35, 0.25))
 
 	if dragging:
 		var at := _snap_cell(dragging)

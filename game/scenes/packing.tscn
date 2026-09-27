@@ -1,10 +1,12 @@
 [gd_scene format=3 uid="uid://1u1q77juosqs"]
 
-[ext_resource type="Script" path="res://scripts/packing/packing.gd" id="1_wtcfe"]
-[ext_resource type="Texture2D" path="res://assets/sprites/packing/crate.png" id="2_0e48y"]
-[ext_resource type="Texture2D" path="res://assets/sprites/packing/background.png" id="3_epypp"]
+[ext_resource type="Script" uid="uid://5rsq46n68p0r" path="res://scripts/packing/packing.gd" id="1_wtcfe"]
+[ext_resource type="Texture2D" uid="uid://db0vnmfq5gasy" path="res://assets/sprites/packing/crate.png" id="2_0e48y"]
+[ext_resource type="Texture2D" uid="uid://5ap0b3y6bdd6" path="res://assets/sprites/packing/background.png" id="3_epypp"]
+[ext_resource type="Texture2D" uid="uid://cqwqd03mg7051" path="res://assets/sprites/platformer/shroom_on.png" id="4_ju4qu"]
 
-[node name="Packing" type="Node2D"]
+[node name="Packing" type="Node2D" unique_id=377865224]
 script = ExtResource("1_wtcfe")
 block_texture = ExtResource("2_0e48y")
 background_texture = ExtResource("3_epypp")
+mushroom_textures = ExtResource("4_ju4qu")
