@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://c3wauulm1dttu" path="res://scenes/platformer.tscn" id="7_i5y0i"]
 [ext_resource type="PackedScene" uid="uid://8xn22ho5n0un" path="res://scenes/suika.tscn" id="8_b5655"]
 [ext_resource type="PackedScene" uid="uid://ci1wwj1jxt6d0" path="res://scenes/common/dialogue_layer.tscn" id="9_0n4wa"]
+[ext_resource type="Script" uid="uid://c8dxrsncwckf" path="res://scripts/darkness.gd" id="11_ff6um"]
+[ext_resource type="Script" uid="uid://4pfqaa8w0d2r" path="res://scripts/overworld/darkness_source.gd" id="12_vvo0y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w51ix"]
 texture = ExtResource("2_puia7")
@@ -142,6 +144,15 @@ nextScene = ExtResource("8_b5655")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SuikaTrigger" unique_id=1532969515]
 position = Vector2(-2543, 880)
 shape = SubResource("RectangleShape2D_2sk2l")
+
+[node name="Darkness" type="CanvasModulate" parent="." unique_id=1165039253]
+unique_name_in_owner = true
+visible = false
+script = ExtResource("11_ff6um")
+
+[node name="DarknessSource" type="Node2D" parent="." unique_id=1041106459]
+position = Vector2(-146, 525)
+script = ExtResource("12_vvo0y")
 
 [connection signal="body_entered" from="IntroCameraLimits" to="IntroCameraLimits" method="_on_body_entered"]
 [connection signal="body_entered" from="MainCameraLimits" to="MainCameraLimits" method="_on_body_entered"]
