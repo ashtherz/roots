@@ -4,15 +4,19 @@ const DIRS = [Vector2i.RIGHT, Vector2i.LEFT, Vector2i.UP, Vector2i.DOWN]
 
 @export var cols := 6
 @export var rows := 5
-@export var cell_size := 56.0
-@export_range(0.3, 0.8) var board_area := 0.55
+@export var max_cell_size := 110.0   # biggest a square is allowed to get
+@export var min_cell_size := 32.0    # never shrink below this
+@export_range(0.3, 0.8) var board_area := 0.5
 @export var margin := 40.0
+@export var top_space := 110.0       # room reserved for the status text
+@export var bottom_space := 60.0     # room reserved for the hint text
 @export var block_texture: Texture2D
 @export var background_texture: Texture2D
 @export var mushroom_textures: Texture2D
 @export_range(0, 10) var mushroom_count := 3
 #@export var status_font_size := 32
 
+var cell_size := 56.0   # calculated automatically in _fit_cell_size()
 
 var board_origin := Vector2.ZERO
 var tray_rect := Rect2()
@@ -23,15 +27,27 @@ var pieces: Array = []
 var dragging: Piece = null
 var drag_offset := Vector2.ZERO
 var status: Label
+var hint: Label
 
 
 func _ready() -> void:
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	var view := get_viewport_rect().size
+
 	status = Label.new()
 	status.position = Vector2(40, 24)
-	status.add_theme_font_size_override("font_size", 35)
+	status.add_theme_font_size_override("font_size", 50)
 	add_child(status)
-	_layout_board()
+
+	hint = Label.new()
+	hint.text = "Stuck? Press N for a new arrangement"
+	hint.add_theme_font_size_override("font_size", 22)
+	hint.modulate = Color(1, 1, 1, 0.7)
+	hint.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	hint.position = Vector2(0, view.y - bottom_space + 12)
+	hint.size = Vector2(view.x, bottom_space - 12)
+	add_child(hint)
+
 	new_puzzle()
 
 func new_puzzle() -> void:
@@ -44,13 +60,26 @@ func new_puzzle() -> void:
 
 	_place_mushrooms()
 	var groups := _partition_board()
+
+	# Decide rotations up front so we know each piece's size in the tray
+	var rots: Array[int] = []
+	var sizes: Array[Vector2i] = []
+	for g in groups:
+		var r := randi() % 4
+		rots.append(r)
+		var s := _group_size(g)
+		sizes.append(Vector2i(s.y, s.x) if r % 2 == 1 else s)
+
+	_fit_cell_size(sizes)
+	_layout_board()
+
 	for i in groups.size():
 		var p := Piece.new()
 		add_child(p)
 		p.texture = block_texture
 		p.cell = cell_size
 		p.setup(groups[i], Color.from_hsv(float(i) / groups.size(), 0.55, 0.95))
-		for r in randi() % 4:
+		for r in rots[i]:
 			p.rotate_cw(p.global_position)
 		if randf() < 0.5:
 			p.flip_h(p.global_position)
@@ -60,12 +89,63 @@ func new_puzzle() -> void:
 	_update_status()
 	queue_redraw()
 
+
+func _group_size(g: Array) -> Vector2i:
+	var lo: Vector2i = g[0]
+	var hi: Vector2i = g[0]
+	for c in g:
+		lo = Vector2i(mini(lo.x, c.x), mini(lo.y, c.y))
+		hi = Vector2i(maxi(hi.x, c.x), maxi(hi.y, c.y))
+	return hi - lo + Vector2i.ONE
+
+
+func _tray_rect() -> Rect2:
+	var view := get_viewport_rect().size
+	var split := view.x * board_area
+	return Rect2(split, top_space, view.x - split - margin, view.y - top_space - bottom_space)
+
+
+# Pick the biggest cell size where the board fits its half of the screen
+# AND every piece fits in the tray.
+func _fit_cell_size(sizes: Array[Vector2i]) -> void:
+	var view := get_viewport_rect().size
+	var split := view.x * board_area
+	var avail_h := view.y - top_space - bottom_space
+	var c := floorf(minf(split * 0.85 / cols, avail_h * 0.9 / rows))
+	c = minf(c, max_cell_size)
+	var tray := _tray_rect()
+	while c > min_cell_size and not _tray_fits(sizes, c, tray):
+		c -= 2.0
+	cell_size = c
+
+
+func _tray_fits(sizes: Array[Vector2i], c: float, tray: Rect2) -> bool:
+	var gap := c * 0.5
+	var x := 0.0
+	var y := 0.0
+	var row_h := 0.0
+	for s in sizes:
+		var sz := Vector2(s) * c
+		if sz.x > tray.size.x:
+			return false
+		if x > 0.0 and x + sz.x > tray.size.x:
+			x = 0.0
+			y += row_h + gap
+			row_h = 0.0
+		x += sz.x + gap
+		row_h = maxf(row_h, sz.y)
+	return y + row_h <= tray.size.y
+
+
 func _layout_board() -> void:
 	var view := get_viewport_rect().size
 	var split := view.x * board_area
-	board_origin = (Vector2(split, view.y) - Vector2(cols, rows) * cell_size) / 2.0
-	board_origin = board_origin.round()
-	tray_rect = Rect2(split, margin, view.x - split - margin, view.y - margin * 2.0)
+	var avail_h := view.y - top_space - bottom_space
+	board_origin = Vector2(
+		(split - cols * cell_size) / 2.0,
+		top_space + (avail_h - rows * cell_size) / 2.0
+	).round()
+	tray_rect = _tray_rect()
 
 
 func _layout_tray() -> void:
@@ -298,10 +378,11 @@ func _is_packed() -> bool:
 
 func _update_status() -> void:
 	if _is_packed():
-		status.text = "Good job! Everything now fits!. Keep rearranging, or press N for a new puzzle."
+		status.text = "Good job! Everything now fits! Keep rearranging, or press N for a new puzzle."
 	else:
 		status.text = "Filled %d / %d    drag = move · R = rotate · F = flip" \
 			% [grid.size(), _free_cell_count()]
+	hint.visible = not _is_packed()
 
 func _draw() -> void:
 	if background_texture:
