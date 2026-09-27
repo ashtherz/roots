@@ -66,6 +66,6 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		interactionState = "INACTIVE"
 		show_state()
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if interactionState == "IN_RANGE" and Input.is_action_just_pressed("Interact"):
 		interact()

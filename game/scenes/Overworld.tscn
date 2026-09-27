@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://cmouwejqawh1r" path="res://assets/sprites/tilesets/platform.png" id="3_gacct"]
 [ext_resource type="Texture2D" uid="uid://cbjomclqpoufr" path="res://assets/sprites/cgs/intro.png" id="4_gacct"]
 [ext_resource type="Script" uid="uid://bfndo87ptunb6" path="res://scripts/platformer/camera_trigger.gd" id="5_w51ix"]
+[ext_resource type="Script" uid="uid://dd68kak3i7n04" path="res://scenes/scene_trigger.gd" id="6_bos8a"]
+[ext_resource type="PackedScene" uid="uid://c3wauulm1dttu" path="res://scenes/platformer.tscn" id="7_i5y0i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w51ix"]
 texture = ExtResource("2_puia7")
@@ -70,6 +72,9 @@ size = Vector2(1173, 806)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gu6s7"]
 size = Vector2(4918, 1707)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2sk2l"]
+size = Vector2(20, 418)
+
 [node name="Overworld" type="Node2D" unique_id=1552427704]
 
 [node name="Player" parent="." unique_id=203250515 instance=ExtResource("1_c3gql")]
@@ -104,5 +109,15 @@ script = ExtResource("5_w51ix")
 position = Vector2(-1171, 712.5)
 shape = SubResource("RectangleShape2D_gu6s7")
 
+[node name="PlatformerTrigger" type="Area2D" parent="." unique_id=1817646557]
+position = Vector2(205, 563)
+script = ExtResource("6_bos8a")
+nextScene = ExtResource("7_i5y0i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformerTrigger" unique_id=733701610]
+position = Vector2(0, -199)
+shape = SubResource("RectangleShape2D_2sk2l")
+
 [connection signal="body_entered" from="IntroCameraLimits" to="IntroCameraLimits" method="_on_body_entered"]
 [connection signal="body_entered" from="MainCameraLimits" to="MainCameraLimits" method="_on_body_entered"]
+[connection signal="body_entered" from="PlatformerTrigger" to="PlatformerTrigger" method="_on_body_entered"]

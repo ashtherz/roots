@@ -36,7 +36,7 @@ var air_time : float = 0.0
 var animation : String = "default"
 
 static func get_x_accel(signed_speed : float, on_floor : bool) -> float:
-	var not_on_floor_penalty : float = 1 if on_floor or signed_speed < 0 else NOT_ON_FLOOR_PENALTY
+	var not_on_floor_penalty : float = 1.0 if on_floor or signed_speed < 0 else NOT_ON_FLOOR_PENALTY
 	var accel_factor : float = (START_ACCEL_FACTOR + (1 - START_ACCEL_FACTOR) * signed_speed / (MAX_SPEED))
 	return BASE_ACCEL * not_on_floor_penalty * accel_factor
 
