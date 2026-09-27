@@ -8,8 +8,11 @@ var suika_ball = preload("res://scenes/suika_ball.tscn")
 @export var right_lim = 10;
 @export var points_display : Label
 
+@export var overworld : PackedScene;
+
 var spawn_lim = 0;
 var total_points = 0;
+var dead = false;
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,6 +20,13 @@ func _ready() -> void:
 	spawn_lim = 0;
 	death.suika_die.connect(die)
 
+func replay():
+	print("Replay!")
+	get_tree().reload_current_scene()
+	
+func back():
+	print("Go back!")
+	SceneManager.call_deferred("return_to_previous_scene")
 
 func die():
 	var msg = "Stinky..."
@@ -28,6 +38,7 @@ func die():
 		msg = "Nice!"
 	endscreen.get_node("Score").text = "Score: " + str(total_points) + "\n" + msg
 	endscreen.visible = true
+	dead = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -41,7 +52,7 @@ func _process(delta: float) -> void:
 	curr.global_position.x = min(max(mouse_pos.x, left_lim), right_lim);
 	
 func _input(event):
-	if spawn_lim > 0:
+	if spawn_lim > 0 or dead:
 		return
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 		curr.gravity_scale = 1.0;

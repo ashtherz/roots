@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://clbs7mrnk45wt" path="res://scripts/suika/suika.gd" id="2_5hanc"]
 [ext_resource type="Texture2D" uid="uid://dr1c7ntp5hnve" path="res://assets/sprites/suika/Bathtub.png" id="2_k0b4q"]
 [ext_resource type="Script" uid="uid://buxng3piew1g8" path="res://scripts/suika/suika_death.gd" id="3_flqyl"]
+[ext_resource type="PackedScene" uid="uid://bt12l0njnbrrs" path="res://scenes/Overworld.tscn" id="5_ffnaq"]
 [ext_resource type="Texture2D" uid="uid://bpv31xyanpevw" path="res://assets/sprites/cgs/bathroom.png" id="5_k0b4q"]
 [ext_resource type="Theme" uid="uid://2ib07f6qsldu" path="res://assets/sprites/ui/ui_theme.tres" id="6_cgevu"]
 
@@ -67,6 +68,7 @@ endscreen = NodePath("../Endscreen")
 left_lim = 200
 right_lim = 1700
 points_display = NodePath("../points_display")
+overworld = ExtResource("5_ffnaq")
 
 [node name="Death" type="Area2D" parent="GameController" unique_id=498911036]
 position = Vector2(-987, -184)
@@ -112,3 +114,6 @@ offset_right = 1032.1953
 offset_bottom = 310.9368
 theme = ExtResource("6_cgevu")
 text = "Back"
+
+[connection signal="pressed" from="Endscreen/Replay" to="GameController" method="replay"]
+[connection signal="pressed" from="Endscreen/Finish" to="GameController" method="back"]
