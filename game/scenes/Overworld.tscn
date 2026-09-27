@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://1u1q77juosqs" path="res://scenes/packing.tscn" id="28_obta5"]
 [ext_resource type="Texture2D" uid="uid://b4habx556jx21" path="res://assets/sprites/overworld/bathroom.png" id="29_wbcx6"]
 [ext_resource type="Texture2D" uid="uid://kiu1bs2xqbos" path="res://assets/sprites/overworld/roots_1.png" id="31_86rkh"]
+[ext_resource type="Texture2D" uid="uid://d10q5xnhwvbsd" path="res://assets/sprites/overworld/roots_5.png" id="31_335e5"]
 [ext_resource type="Texture2D" uid="uid://d4e34msdh6pp7" path="res://assets/sprites/overworld/roots_4.png" id="32_335e5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w51ix"]
@@ -559,6 +560,23 @@ script = ExtResource("18_dpgcr")
 interactedSprite = ExtResource("25_7w2od")
 litSprite = ExtResource("26_bw7tk")
 
+[node name="Sprite2D3" type="Sprite2D" parent="BedroomClone" unique_id=98250446]
+position = Vector2(168, 280.99994)
+rotation = 3.1415927
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("32_335e5")
+
+[node name="Sprite2D4" type="Sprite2D" parent="BedroomClone" unique_id=1171601404]
+position = Vector2(-961, 534)
+rotation = 3.1415927
+scale = Vector2(0.333, 0.333)
+texture = ExtResource("32_335e5")
+
+[node name="Sprite2D5" type="Sprite2D" parent="BedroomClone" unique_id=1075371741]
+position = Vector2(-1751, 479)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("31_335e5")
+
 [node name="Kitchen" type="Sprite2D" parent="." unique_id=1755581870]
 position = Vector2(-3214, 733.99994)
 scale = Vector2(0.333, 0.333)
@@ -566,12 +584,6 @@ texture = ExtResource("27_kwuyf")
 
 [node name="Sprite2D" type="Sprite2D" parent="Kitchen" unique_id=1379573451]
 position = Vector2(144.14415, 93.09327)
-rotation = 4.712389
-scale = Vector2(-1, 1)
-texture = ExtResource("31_86rkh")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Kitchen" unique_id=244672979]
-position = Vector2(3234.2341, -2075.075)
 rotation = 4.712389
 scale = Vector2(-1, 1)
 texture = ExtResource("31_86rkh")
