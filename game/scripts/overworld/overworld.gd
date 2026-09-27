@@ -2,6 +2,9 @@ extends Node2D
 
 
 func _ready() -> void:
+	lorem_ipsum()
+	
+func lorem_ipsum() -> void:
 	%DialogueLayer/Dialogue.queue_text("player", "What a lovely fall day~")
 	%DialogueLayer/Dialogue.queue_text("player", "What a relief that the placeholder text works! I wonder if pressing [ESC] will help me skip the dialogue...")
 	%DialogueLayer/Dialogue.queue_text("player", "(Press [ESC])")
