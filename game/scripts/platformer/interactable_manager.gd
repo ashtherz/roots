@@ -36,4 +36,4 @@ func start_game() -> void:
 
 func _on_return_trigger_body_entered(body: Node2D) -> void:
 	if body == %Player and canReturn:
-		SceneManager.return_to_previous_scene()
+		SceneManager.return_to_previous_scene(%Player.global_position, %Player.velocity)

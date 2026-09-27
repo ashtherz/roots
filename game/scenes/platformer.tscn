@@ -95,6 +95,7 @@ shader = ExtResource("3_85uu4")
 size = Vector2(20, 186)
 
 [node name="Platformer" type="Node2D" unique_id=1619893616]
+position = Vector2(-79, -37)
 script = ExtResource("1_fbug8")
 
 [node name="Player" parent="." unique_id=203250515 instance=ExtResource("1_850bg")]
