@@ -172,11 +172,10 @@ shape = SubResource("CircleShape2D_a12gr")
 [node name="Waypoint" type="Node2D" parent="PackingTrigger" unique_id=165229861]
 position = Vector2(692, -58)
 
-[node name="PlatformerTrigger" type="Area2D" parent="." unique_id=1817646557 node_paths=PackedStringArray("playerWaypoint")]
+[node name="PlatformerTrigger" type="Area2D" parent="." unique_id=1817646557]
 position = Vector2(427, 563)
 script = ExtResource("6_bos8a")
 nextScene = ExtResource("7_i5y0i")
-playerWaypoint = NodePath("Waypoint")
 transmitPlayerPosition = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformerTrigger" unique_id=733701610]
@@ -445,6 +444,20 @@ script = ExtResource("18_dpgcr")
 interactedSprite = ExtResource("19_0e4f7")
 litSprite = ExtResource("20_udys8")
 
+[node name="Interactable11" type="Area2D" parent="BedroomClone/InteractableManager" unique_id=1479373049]
+position = Vector2(519, 556)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BedroomClone/InteractableManager/Interactable11" unique_id=301638315]
+shape = SubResource("CircleShape2D_8fu3b")
+
+[node name="Sprite2D" type="Sprite2D" parent="BedroomClone/InteractableManager/Interactable11" unique_id=938703004]
+material = SubResource("ShaderMaterial_kwuyf")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("17_wbcx6")
+script = ExtResource("18_dpgcr")
+interactedSprite = ExtResource("19_0e4f7")
+litSprite = ExtResource("20_udys8")
+
 [node name="Interactable10" type="Area2D" parent="BedroomClone/InteractableManager" unique_id=589858917]
 position = Vector2(1067, 556)
 
@@ -546,6 +559,62 @@ script = ExtResource("18_dpgcr")
 interactedSprite = ExtResource("25_7w2od")
 litSprite = ExtResource("26_bw7tk")
 
+[node name="Interactable12" type="Area2D" parent="BedroomClone/InteractableManager" unique_id=1844498644]
+position = Vector2(-321, 544)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BedroomClone/InteractableManager/Interactable12" unique_id=1078023070]
+shape = SubResource("CircleShape2D_8fu3b")
+
+[node name="Sprite2D" type="Sprite2D" parent="BedroomClone/InteractableManager/Interactable12" unique_id=62850722]
+material = SubResource("ShaderMaterial_kwuyf")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("24_fjfis")
+script = ExtResource("18_dpgcr")
+interactedSprite = ExtResource("25_7w2od")
+litSprite = ExtResource("26_bw7tk")
+
+[node name="Interactable13" type="Area2D" parent="BedroomClone/InteractableManager" unique_id=1108793767]
+position = Vector2(-644, 496)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BedroomClone/InteractableManager/Interactable13" unique_id=1742171027]
+shape = SubResource("CircleShape2D_8fu3b")
+
+[node name="Sprite2D" type="Sprite2D" parent="BedroomClone/InteractableManager/Interactable13" unique_id=905954622]
+material = SubResource("ShaderMaterial_kwuyf")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("24_fjfis")
+script = ExtResource("18_dpgcr")
+interactedSprite = ExtResource("25_7w2od")
+litSprite = ExtResource("26_bw7tk")
+
+[node name="Interactable14" type="Area2D" parent="BedroomClone/InteractableManager" unique_id=30063759]
+position = Vector2(-854, 495)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BedroomClone/InteractableManager/Interactable14" unique_id=1908127948]
+shape = SubResource("CircleShape2D_8fu3b")
+
+[node name="Sprite2D" type="Sprite2D" parent="BedroomClone/InteractableManager/Interactable14" unique_id=730860208]
+material = SubResource("ShaderMaterial_kwuyf")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("24_fjfis")
+script = ExtResource("18_dpgcr")
+interactedSprite = ExtResource("25_7w2od")
+litSprite = ExtResource("26_bw7tk")
+
+[node name="Interactable15" type="Area2D" parent="BedroomClone/InteractableManager" unique_id=601990063]
+position = Vector2(-1039, 729)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BedroomClone/InteractableManager/Interactable15" unique_id=1066432104]
+shape = SubResource("CircleShape2D_8fu3b")
+
+[node name="Sprite2D" type="Sprite2D" parent="BedroomClone/InteractableManager/Interactable15" unique_id=785192439]
+material = SubResource("ShaderMaterial_kwuyf")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("24_fjfis")
+script = ExtResource("18_dpgcr")
+interactedSprite = ExtResource("25_7w2od")
+litSprite = ExtResource("26_bw7tk")
+
 [node name="Interactable8" type="Area2D" parent="BedroomClone/InteractableManager" unique_id=2069374714]
 position = Vector2(395, 413)
 
@@ -607,6 +676,8 @@ texture = ExtResource("29_wbcx6")
 [connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable" to="BedroomClone/InteractableManager/Interactable/Sprite2D" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="BedroomClone/InteractableManager/Interactable9" to="BedroomClone/InteractableManager/Interactable9/Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable9" to="BedroomClone/InteractableManager/Interactable9/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="BedroomClone/InteractableManager/Interactable11" to="BedroomClone/InteractableManager/Interactable11/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable11" to="BedroomClone/InteractableManager/Interactable11/Sprite2D" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="BedroomClone/InteractableManager/Interactable10" to="BedroomClone/InteractableManager/Interactable10/Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable10" to="BedroomClone/InteractableManager/Interactable10/Sprite2D" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="BedroomClone/InteractableManager/Interactable2" to="BedroomClone/InteractableManager/Interactable2/Sprite2D" method="_on_area_2d_body_entered"]
@@ -621,5 +692,13 @@ texture = ExtResource("29_wbcx6")
 [connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable6" to="BedroomClone/InteractableManager/Interactable6/Sprite2D" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="BedroomClone/InteractableManager/Interactable7" to="BedroomClone/InteractableManager/Interactable7/Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable7" to="BedroomClone/InteractableManager/Interactable7/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="BedroomClone/InteractableManager/Interactable12" to="BedroomClone/InteractableManager/Interactable12/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable12" to="BedroomClone/InteractableManager/Interactable12/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="BedroomClone/InteractableManager/Interactable13" to="BedroomClone/InteractableManager/Interactable13/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable13" to="BedroomClone/InteractableManager/Interactable13/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="BedroomClone/InteractableManager/Interactable14" to="BedroomClone/InteractableManager/Interactable14/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable14" to="BedroomClone/InteractableManager/Interactable14/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="BedroomClone/InteractableManager/Interactable15" to="BedroomClone/InteractableManager/Interactable15/Sprite2D" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable15" to="BedroomClone/InteractableManager/Interactable15/Sprite2D" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="BedroomClone/InteractableManager/Interactable8" to="BedroomClone/InteractableManager/Interactable8/Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable8" to="BedroomClone/InteractableManager/Interactable8/Sprite2D" method="_on_area_2d_body_exited"]
