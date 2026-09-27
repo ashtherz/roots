@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://1u1q77juosqs"]
 
-[ext_resource type="Script" uid="uid://db16rajh15wli" path="res://main.gd" id="1_wtcfe"]
-[ext_resource type="Texture2D" uid="uid://cp1f3as8cb7f6" path="res://crate.png" id="2_0e48y"]
-[ext_resource type="Texture2D" uid="uid://clh7da82ouh3o" path="res://background.png" id="3_epypp"]
+[ext_resource type="Script" path="res://scripts/packing/packing.gd" id="1_wtcfe"]
+[ext_resource type="Texture2D" path="res://assets/sprites/packing/crate.png" id="2_0e48y"]
+[ext_resource type="Texture2D" path="res://assets/sprites/packing/background.png" id="3_epypp"]
 
-[node name="Node2D" type="Node2D" unique_id=994947382]
+[node name="Packing" type="Node2D"]
 script = ExtResource("1_wtcfe")
 block_texture = ExtResource("2_0e48y")
 background_texture = ExtResource("3_epypp")
