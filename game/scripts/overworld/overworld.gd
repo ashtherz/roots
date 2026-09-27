@@ -1,14 +1,10 @@
 extends Node2D
 
-## Kitchen (packing), bedroom (platformer), bathroom (suika).
-const AREA_COUNT := 3
-
 var gamesComplete: Dictionary[String, bool] = {
 	"Platformer": false,
 	"Suika": false,
 	"Packing": false,
 }
-var areas_done : int = 0
 
 @onready var dialogue = %DialogueLayer/Dialogue
 
@@ -20,20 +16,14 @@ func _ready() -> void:
 	dialogue.play.call_deferred("intro")
 
 
-
 func _on_returned() -> void:
-	var trigger = SceneManager.last_trigger
-	SceneManager.last_trigger = null
+	var trigger = SceneManager.lastTrigger
+	SceneManager.lastTrigger = null
 	if trigger != null and trigger.dialogueAfter != "":
 		await dialogue.play(trigger.dialogueAfter)
 
-	areas_done += 1
-	if areas_done == AREA_COUNT:
-		await dialogue.play("ending")
-		# TODO: end screen / credits go here
 
-
-func lorem_ipsum() -> void:
+func _lorem_ipsum() -> void:
 	%DialogueLayer/Dialogue.queue_text("player", "What a lovely fall day~")
 	%DialogueLayer/Dialogue.queue_text("player", "What a relief that the placeholder text works! I wonder if pressing [ESC] will help me skip the dialogue...")
 	%DialogueLayer/Dialogue.queue_text("player", "(Press [ESC])")
@@ -48,9 +38,9 @@ func lorem_ipsum() -> void:
 	%DialogueLayer/Dialogue.call_deferred("start_text", true)
 	
 func _check_win_condition() -> void:
-	if gamesComplete["Platformer"] and gamesComplete["Suika"] and gamesComplete["Packing"]:
-		%DialogueLayer/Dialogue.queue_text("player", "Hey everyone! The shelter is ready for new inhabitants!")
-		%DialogueLayer/Dialogue.call_deferred("start_text", true)
+	if gamesComplete["Platformer"] and gamesComplete["Suika"] and gamesComplete["Packing"] and not $Credits.visible:
+		await %DialogueLayer/Dialogue.play("ending")
+		$Credits.visible = true
 
 func register_game_complete(game: String) -> void:
 	if game == "Platformer":
@@ -59,6 +49,11 @@ func register_game_complete(game: String) -> void:
 	gamesComplete[game] = true
 	
 	if gamesComplete["Platformer"] and gamesComplete["Suika"] and gamesComplete["Packing"]:
-		%DialogueLayer/Dialogue.queue_text("player", "All challenges done!")
+		%DialogueLayer/Dialogue.queue_text("player", "All tasks complete!")
 		%DialogueLayer/Dialogue.queue_text("player", "Let's return to the surface and invite everyone in!")
 		%DialogueLayer/Dialogue.call_deferred("start_text", true)
+
+
+func _on_ending_trigger_body_entered(body: Node2D) -> void:
+	if body == %Player:
+		_check_win_condition()

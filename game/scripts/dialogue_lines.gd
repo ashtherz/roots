@@ -17,7 +17,7 @@ const LINES := {
 		"Maybe it's time to cook something up!",
 		"Wait there's nothing in the kitchen...",
 		"Hmm winter is coming and we need to prepare food",
-		"But there's so little space",
+		"But there's so little space in the cupboard...",
 		"I'll make it work!",
 	],
 	"kitchen_after": [

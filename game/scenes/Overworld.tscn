@@ -114,6 +114,9 @@ radius = 50.0
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kwuyf"]
 shader = ExtResource("16_obta5")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_sw6rd"]
+radius = 35.014282
+
 [node name="Overworld" type="Node2D" unique_id=1552427704]
 script = ExtResource("1_666lb")
 
@@ -137,7 +140,6 @@ texture = ExtResource("4_gacct")
 
 [node name="IntroScreen2" type="Sprite2D" parent="." unique_id=410641601]
 modulate = Color(0.55, 0.48555836, 0.44550002, 1)
-z_index = -1
 texture_filter = 2
 position = Vector2(-2114, -564)
 scale = Vector2(-0.5, 0.5)
@@ -164,6 +166,8 @@ position = Vector2(-3552, 904)
 script = ExtResource("6_bos8a")
 nextScene = ExtResource("28_obta5")
 playerWaypoint = NodePath("Waypoint")
+dialogueBefore = "kitchen_before"
+dialogueAfter = "kitchen_after"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PackingTrigger" unique_id=1150235376]
 position = Vector2(0, -172)
@@ -193,6 +197,8 @@ position = Vector2(205, 563)
 script = ExtResource("6_bos8a")
 nextScene = ExtResource("8_b5655")
 playerWaypoint = NodePath("Waypoint")
+dialogueBefore = "bathroom_before"
+dialogueAfter = "bathroom_after"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SuikaTrigger" unique_id=1532969515]
 position = Vector2(-2543, 880)
@@ -215,6 +221,7 @@ script = ExtResource("12_vvo0y")
 position = Vector2(-500, 800)
 
 [node name="Sprite2D" type="Sprite2D" parent="Wall" unique_id=1471026223]
+z_index = -1
 scale = Vector2(3, 3)
 texture = ExtResource("13_vvo0y")
 
@@ -229,6 +236,22 @@ theme_override_colors/font_outline_color = Color(0.31, 0.21493334, 0.061999995, 
 theme_override_constants/outline_size = 5
 text = "Arrow Keys: Move
 [Z]: Interact / Play Text"
+
+[node name="Credits" type="Label" parent="." unique_id=1076351624]
+visible = false
+z_index = 2
+offset_left = -2265.0
+offset_top = -396.0
+offset_right = -1939.0
+offset_bottom = -295.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.31, 0.21493334, 0.061999995, 1)
+theme_override_constants/outline_size = 8
+text = "CREDITS
+
+Programming: ashtherz, Quetzal, spdskatr
+Art: ashtherz, Quetzal, spdskatr"
+horizontal_alignment = 1
 
 [node name="BedroomClone" type="Node2D" parent="." unique_id=947467345]
 
@@ -667,6 +690,12 @@ position = Vector2(-2351.9998, 1294)
 scale = Vector2(0.333, 0.333)
 texture = ExtResource("29_wbcx6")
 
+[node name="EndingTrigger" type="Area2D" parent="." unique_id=1901402198]
+position = Vector2(-1882, -445)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EndingTrigger" unique_id=361256526]
+shape = SubResource("CircleShape2D_sw6rd")
+
 [connection signal="body_entered" from="IntroCameraLimits" to="IntroCameraLimits" method="_on_body_entered"]
 [connection signal="body_entered" from="MainCameraLimits" to="MainCameraLimits" method="_on_body_entered"]
 [connection signal="body_entered" from="PackingTrigger" to="PackingTrigger" method="_on_body_entered"]
@@ -702,3 +731,4 @@ texture = ExtResource("29_wbcx6")
 [connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable15" to="BedroomClone/InteractableManager/Interactable15/Sprite2D" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="BedroomClone/InteractableManager/Interactable8" to="BedroomClone/InteractableManager/Interactable8/Sprite2D" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="BedroomClone/InteractableManager/Interactable8" to="BedroomClone/InteractableManager/Interactable8/Sprite2D" method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="EndingTrigger" to="." method="_on_ending_trigger_body_entered"]

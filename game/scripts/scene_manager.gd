@@ -4,6 +4,7 @@ extends Node
 signal returned_to_previous_scene
 
 var previousScene: Node = null
+var lastTrigger: Node2D = null
 
 func switch_to_sub_scene(new_scene: PackedScene, transmit_player_position : bool = false) -> void:
 	var root = get_tree().root
@@ -49,3 +50,4 @@ func return_to_previous_scene(game_complete : String, player_position: Vector2 =
 		player.global_position = player_position
 	player.velocity = player_velocity
 	previousScene = null
+	returned_to_previous_scene.emit()
