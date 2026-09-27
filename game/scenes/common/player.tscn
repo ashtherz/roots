@@ -114,6 +114,7 @@ sprite_frames = SubResource("SpriteFrames_5m132")
 autoplay = "default"
 
 [node name="Silhouette" type="AnimatedSprite2D" parent="." unique_id=1717440159]
+visible = false
 z_index = 2
 material = SubResource("ShaderMaterial_w51ix")
 position = Vector2(0, -19)

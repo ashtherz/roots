@@ -10,6 +10,8 @@ func _play_game_win() -> void:
 func _on_interact(_sprite: Sprite2D) -> void:
 	interactCount += 1
 	update_mushrooms_left()
+	if interactCount == 2:
+		%InteractHint.visible = false
 	if interactCount == len(sprites):
 		_play_game_win()
 
