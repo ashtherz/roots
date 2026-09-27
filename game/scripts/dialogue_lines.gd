@@ -8,6 +8,7 @@ const LINES := {
 		"I know!",
 		"I'll make a place for everyone to stay during the winter!",
 		"Right here under this tree ~",
+		"Squeak!",
 	],
 
 	# Kitchen -> packing puzzle
@@ -22,7 +23,7 @@ const LINES := {
 	],
 	"kitchen_after": [
 		"That should do it!",
-		"Winter got nothing on Squeak!",
+		"Squeak!",
 	],
 
 	# Bedroom -> platformer (both played inside the platformer scene)
@@ -34,7 +35,8 @@ const LINES := {
 	],
 	"bedroom_after": [
 		"There you go!",
-		"Now everyone can sleep nice and snug just in time for winter",
+		"Now everyone can sleep nice and snug",
+		"Squeak!",
 	],
 
 	# Bathroom -> suika
@@ -47,6 +49,7 @@ const LINES := {
 	"bathroom_after": [
 		"Hmm that was nice...",
 		"I feel so clean and fresh!",
+		"Squeak!",
 	],
 
 	"ending": [
@@ -54,5 +57,6 @@ const LINES := {
 		"*Happy squeak noises*",
 		"Just in time for winter...",
 		"Time to rest",
+		"Squeak!",
 	],
 }
