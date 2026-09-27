@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://cqwqd03mg7051" path="res://assets/sprites/platformer/shroom_on.png" id="18_wxju3"]
 [ext_resource type="PackedScene" uid="uid://ci1wwj1jxt6d0" path="res://scenes/common/dialogue_layer.tscn" id="19_siti5"]
 [ext_resource type="Script" uid="uid://c8dxrsncwckf" path="res://scripts/darkness.gd" id="20_wxju3"]
+[ext_resource type="Texture2D" uid="uid://cevj2a0bhom21" path="res://assets/sprites/cgs/bedroom.png" id="25_acgxb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_siti5"]
 texture = ExtResource("2_j2uy2")
@@ -503,6 +504,18 @@ unique_name_in_owner = true
 visible = false
 color = Color(0.2509804, 0.2509804, 0.2509804, 1)
 script = ExtResource("20_wxju3")
+
+[node name="EndingLayer" type="CanvasLayer" parent="." unique_id=455956926]
+unique_name_in_owner = true
+layer = 2
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="EndingLayer" unique_id=813465145]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("25_acgxb")
+expand_mode = 1
+stretch_mode = 6
 
 [connection signal="body_entered" from="CameraLimits" to="CameraLimits" method="_on_body_entered"]
 [connection signal="body_entered" from="InteractableManager/Interactable" to="InteractableManager/Interactable/Sprite2D" method="_on_area_2d_body_entered"]

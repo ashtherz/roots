@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://5ix4w1i1dqpv" path="res://assets/sprites/faces/squeak.png" id="2_iuuju"]
 
 [node name="DialogueLayer" type="CanvasLayer" unique_id=1581602448]
-layer = 2
+layer = 3
 
 [node name="Dialogue" type="Panel" parent="." unique_id=2126517010]
 process_mode = 3

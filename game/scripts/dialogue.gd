@@ -1,5 +1,7 @@
 extends Panel
 
+signal textFinished
+
 # Copied from one of spdskatr's past projects - Perplex Temple
 
 @export var text_speed: float = 0.02  # Speed of text appearing
@@ -74,6 +76,7 @@ func _process(delta):
 		dialogue_queue.clear()
 		hide()  # Hide the text box when dialogue is finished
 		get_tree().paused = false
+		textFinished.emit()
 	
 	if Input.is_action_pressed("Interact") and time_since_skip > skip_cooldown:
 		time_since_skip = 0
@@ -84,6 +87,8 @@ func _process(delta):
 			if dialogue_queue.is_empty():
 				hide()  # Hide the text box when dialogue is finished
 				get_tree().paused = false
+				textFinished.emit()
 			else:
 				_process_text()
+	
 	
